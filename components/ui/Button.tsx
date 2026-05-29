@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost" | "danger" | "gold";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "forest";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
 }
@@ -13,11 +13,11 @@ export function Button({ children, variant = "primary", size = "md", loading, cl
       disabled={disabled || loading}
       className={cn(
         "font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 justify-center",
-        variant === "primary" && "bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-400 text-white shadow-btn hover:shadow-btn-hover hover:scale-[1.02] active:scale-[0.98]",
-        variant === "secondary" && "bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300",
-        variant === "ghost" && "text-gray-500 hover:text-gray-800 hover:bg-gray-100",
+        variant === "primary" && "bg-gradient-to-r from-[#7A5B08] via-[#B07D10] to-[#C8992A] text-white shadow-btn hover:shadow-btn-hover hover:scale-[1.02] active:scale-[0.98]",
+        variant === "secondary" && "bg-white border border-[rgba(27,58,27,0.15)] text-[#1B3A1B] hover:bg-[#F2EDE3] hover:border-[rgba(27,58,27,0.25)]",
+        variant === "ghost" && "text-[#1B3A1B] hover:text-[#0E2A0E] hover:bg-[#E6EDE6]",
         variant === "danger" && "bg-red-50 border border-red-200 text-red-600 hover:bg-red-100",
-        variant === "gold" && "bg-gradient-to-r from-amber-400 to-yellow-500 text-white shadow-gold-sm hover:shadow-[0_8px_30px_rgba(245,158,11,0.4)] hover:scale-[1.02]",
+        variant === "forest" && "bg-[#1B3A1B] text-white shadow-neon-sm hover:bg-[#0E2A0E] hover:scale-[1.02] active:scale-[0.98]",
         size === "sm" && "px-3 py-1.5 text-xs",
         size === "md" && "px-4 py-2.5 text-sm",
         size === "lg" && "px-6 py-3 text-base",

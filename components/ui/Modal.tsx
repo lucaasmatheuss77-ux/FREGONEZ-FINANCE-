@@ -24,7 +24,7 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
       <div className={cn(
-        "relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-2xl shadow-[0_20px_80px_rgba(217,119,6,0.2)] max-h-[90vh] overflow-y-auto border border-purple-100",
+        "relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-2xl shadow-[0_20px_80px_rgba(27,58,27,0.15)] max-h-[90vh] overflow-y-auto border border-[rgba(27,58,27,0.10)]",
         className
       )}>
         <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-gray-100">

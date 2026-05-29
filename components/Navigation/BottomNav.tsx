@@ -21,7 +21,7 @@ export function BottomNav() {
   return (
     <>
       <nav className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3">
-        <div className="bg-white/90 backdrop-blur-xl border border-purple-100 shadow-[0_-4px_40px_rgba(217,119,6,0.12)] rounded-2xl max-w-md mx-auto">
+        <div className="bg-white/92 backdrop-blur-xl border border-[rgba(27,58,27,0.12)] shadow-[0_-4px_32px_rgba(27,58,27,0.10)] rounded-2xl max-w-md mx-auto">
           <div className="flex items-center justify-around px-1 py-2 relative">
             {navItems.slice(0, 2).map(({ href, icon: Icon, label }) => {
               const active = pathname === href;
@@ -29,13 +29,12 @@ export function BottomNav() {
                 <Link key={href} href={href} className="flex-1">
                   <div className={cn(
                     "flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition-all duration-200",
-                    active ? "text-[#4A5D23]" : "text-gray-400 hover:text-gray-600"
+                    active ? "text-[#1B3A1B]" : "text-gray-400 hover:text-gray-600"
                   )}>
-                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#EEF2E6]")}>
+                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#E6EDE6]")}>
                       <Icon size={20} strokeWidth={active ? 2.5 : 2} />
                     </div>
-                    <span className={cn("text-[10px] font-medium", active ? "text-[#4A5D23]" : "text-gray-400")}>{label}</span>
-                    {active && <div className="w-1 h-1 rounded-full bg-[#EEF2E6]0" />}
+                    <span className={cn("text-[10px] font-semibold", active ? "text-[#1B3A1B]" : "text-gray-400")}>{label}</span>
                   </div>
                 </Link>
               );
@@ -45,10 +44,10 @@ export function BottomNav() {
             <div className="flex-1 flex justify-center -mt-7">
               <button
                 onClick={() => setVoiceOpen(true)}
-                className="relative w-16 h-16 rounded-full bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-400 flex items-center justify-center shadow-[0_4px_24px_rgba(217,119,6,0.45)] hover:shadow-[0_8px_40px_rgba(217,119,6,0.6)] transition-all duration-300 hover:scale-110 active:scale-95 glow-animate border-4 border-white"
+                className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#7A5B08] via-[#B07D10] to-[#C8992A] flex items-center justify-center shadow-btn hover:shadow-btn-hover transition-all duration-300 hover:scale-110 active:scale-95 glow-animate border-4 border-white"
               >
                 <Mic size={26} className="text-white" strokeWidth={2.5} />
-                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-cyan-400 rounded-full border-2 border-white animate-pulse" />
+                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-[#1B3A1B] rounded-full border-2 border-white" />
               </button>
             </div>
 
@@ -58,13 +57,12 @@ export function BottomNav() {
                 <Link key={href} href={href} className="flex-1">
                   <div className={cn(
                     "flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition-all duration-200",
-                    active ? "text-[#4A5D23]" : "text-gray-400 hover:text-gray-600"
+                    active ? "text-[#1B3A1B]" : "text-gray-400 hover:text-gray-600"
                   )}>
-                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#EEF2E6]")}>
+                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#E6EDE6]")}>
                       <Icon size={20} strokeWidth={active ? 2.5 : 2} />
                     </div>
-                    <span className={cn("text-[10px] font-medium", active ? "text-[#4A5D23]" : "text-gray-400")}>{label}</span>
-                    {active && <div className="w-1 h-1 rounded-full bg-[#EEF2E6]0" />}
+                    <span className={cn("text-[10px] font-semibold", active ? "text-[#1B3A1B]" : "text-gray-400")}>{label}</span>
                   </div>
                 </Link>
               );

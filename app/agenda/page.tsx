@@ -69,9 +69,9 @@ export default function AgendaPage() {
         {/* Calendar card */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-4">
-            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="p-1.5 rounded-xl hover:bg-gray-100 text-gray-400 transition-colors"><ChevronLeft size={18} /></button>
-            <h2 className="font-black text-gray-800">{MONTHS[month]} {year}</h2>
-            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="p-1.5 rounded-xl hover:bg-gray-100 text-gray-400 transition-colors"><ChevronRight size={18} /></button>
+            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="p-1.5 rounded-xl hover:bg-[#E6EDE6] text-gray-400 transition-colors"><ChevronLeft size={18} /></button>
+            <h2 className="font-black text-[#0E1A0A]">{MONTHS[month]} {year}</h2>
+            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="p-1.5 rounded-xl hover:bg-[#E6EDE6] text-gray-400 transition-colors"><ChevronRight size={18} /></button>
           </div>
 
           <div className="grid grid-cols-7 mb-2">
@@ -89,9 +89,9 @@ export default function AgendaPage() {
               return (
                 <button key={i} onClick={() => { setSelectedDate(dateStr); if (!dayEvs.length) setShowModal(true); }}
                   className={cn("flex flex-col items-center py-1.5 rounded-xl transition-all",
-                    isToday ? "bg-gradient-to-br from-amber-600 to-yellow-500 shadow-neon-sm" : isSel ? "bg-[#EEF2E6] border border-[#C5D4A0]" : "hover:bg-gray-50"
+                    isToday ? "bg-[#1B3A1B] shadow-neon-sm" : isSel ? "bg-[#E6EDE6] border border-[#B8D0B8]" : "hover:bg-[#F5EDD0]"
                   )}>
-                  <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-gray-700")}>{day}</span>
+                  <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-[#0E1A0A]")}>{day}</span>
                   {dayEvs.length > 0 && (
                     <div className="flex gap-0.5 mt-0.5">
                       {dayEvs.slice(0,3).map((e,j) => <div key={j} className="w-1 h-1 rounded-full" style={{ background: e.color }} />)}
@@ -110,15 +110,15 @@ export default function AgendaPage() {
         {/* Selected day */}
         {selectedDate && selectedDayEvents.length > 0 && (
           <Card className="p-4">
-            <h3 className="text-sm font-bold text-gray-800 mb-3">
+            <h3 className="text-sm font-bold text-[#0E1A0A] mb-3">
               {new Date(selectedDate).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })}
             </h3>
             <div className="space-y-2">
               {selectedDayEvents.map(ev => (
-                <div key={ev.id} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 group">
+                <div key={ev.id} className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)] group">
                   <div className="w-1 min-h-[40px] rounded-full flex-shrink-0" style={{ background: ev.color }} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-800">{ev.title}</p>
+                    <p className="text-sm font-semibold text-[#0E1A0A]">{ev.title}</p>
                     {ev.description && <p className="text-xs text-gray-400 mt-0.5">{ev.description}</p>}
                     <p className="text-xs text-gray-400 mt-1">{formatDateTime(ev.startDate)}</p>
                   </div>
@@ -134,23 +134,23 @@ export default function AgendaPage() {
         {/* Upcoming events */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Calendar size={16} className="text-amber-500" />
-            <h3 className="text-sm font-bold text-gray-800">Próximos Eventos</h3>
+            <Calendar size={16} className="text-[#B07D10]" />
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Próximos Eventos</h3>
           </div>
           {loading ? (
-            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
+            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin mx-auto" /></div>
           ) : upcoming.length > 0 ? (
             <div className="space-y-2">
               {upcoming.map(ev => (
-                <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 border border-gray-100 group">
-                  <div className="w-10 h-10 rounded-xl flex flex-col items-center justify-center flex-shrink-0" style={{ background: `${ev.color}15`, border: `1.5px solid ${ev.color}40` }}>
+                <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)] group">
+                  <div className="w-10 h-10 rounded-xl flex flex-col items-center justify-center flex-shrink-0" style={{ background: `${ev.color}18`, border: `1.5px solid ${ev.color}40` }}>
                     <span className="text-[11px] font-black" style={{ color: ev.color }}>{new Date(ev.startDate).getDate()}</span>
                     <span className="text-[9px] font-semibold" style={{ color: ev.color }}>
                       {["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"][new Date(ev.startDate).getMonth()]}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-gray-800 font-semibold truncate">{ev.title}</p>
+                    <p className="text-sm text-[#0E1A0A] font-semibold truncate">{ev.title}</p>
                     <p className="text-xs text-gray-400">{formatDateTime(ev.startDate)}</p>
                     <span className="text-xs text-gray-400">{EVENT_CATEGORY_LABELS[ev.category] || ev.category}</span>
                   </div>

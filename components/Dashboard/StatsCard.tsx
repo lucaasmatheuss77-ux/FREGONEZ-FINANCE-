@@ -8,20 +8,20 @@ interface StatsCardProps {
   icon: LucideIcon;
   trend?: number;
   isCurrency?: boolean;
-  color?: "purple" | "blue" | "green" | "gold" | "red" | "cyan";
+  color?: "forest" | "blue" | "green" | "gold" | "red" | "cyan";
   subtitle?: string;
 }
 
 const colorMap = {
-  purple: { icon: "text-[#4A5D23]", bg: "bg-[#EEF2E6]", border: "border-[#D8E6B8]" },
+  forest: { icon: "text-[#1B3A1B]", bg: "bg-[#E6EDE6]", border: "border-[#B8D0B8]" },
   blue:   { icon: "text-blue-600",   bg: "bg-blue-50",   border: "border-blue-100"   },
   green:  { icon: "text-emerald-600",bg: "bg-emerald-50",border: "border-emerald-100" },
-  gold:   { icon: "text-[#4A5D23]",  bg: "bg-[#EEF2E6]",  border: "border-[#D8E6B8]"  },
+  gold:   { icon: "text-[#B07D10]",  bg: "bg-[#F5EDD0]", border: "border-[#DEC87A]"  },
   red:    { icon: "text-red-500",    bg: "bg-red-50",    border: "border-red-100"    },
   cyan:   { icon: "text-cyan-600",   bg: "bg-cyan-50",   border: "border-cyan-100"   },
 };
 
-export function StatsCard({ title, value, icon: Icon, trend, isCurrency, color = "purple", subtitle }: StatsCardProps) {
+export function StatsCard({ title, value, icon: Icon, trend, isCurrency, color = "forest", subtitle }: StatsCardProps) {
   const c = colorMap[color];
   const display = isCurrency && typeof value === "number" ? formatCurrency(value) : value;
 
@@ -40,7 +40,7 @@ export function StatsCard({ title, value, icon: Icon, trend, isCurrency, color =
         )}
       </div>
       <p className="text-gray-400 text-xs font-medium mb-0.5">{title}</p>
-      <p className="text-xl font-black text-gray-900 truncate">{display}</p>
+      <p className="text-xl font-black text-[#0E1A0A] truncate">{display}</p>
       {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
     </Card>
   );

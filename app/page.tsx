@@ -19,9 +19,9 @@ interface DashboardData {
   categoryData: { name: string; value: number }[];
 }
 
-const priorityDot: Record<string, string> = { high: "bg-red-500", medium: "bg-amber-400", low: "bg-emerald-500" };
+const priorityDot: Record<string, string> = { high: "bg-red-500", medium: "bg-[#B07D10]", low: "bg-emerald-500" };
 const priorityLabel: Record<string, string> = { high: "Alta", medium: "Média", low: "Baixa" };
-const priorityText: Record<string, string> = { high: "text-red-500", medium: "text-amber-500", low: "text-emerald-600" };
+const priorityText: Record<string, string> = { high: "text-red-500", medium: "text-[#B07D10]", low: "text-emerald-600" };
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -46,7 +46,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-amber-600 to-yellow-500 flex items-center justify-center shadow-neon-sm animate-pulse">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-[#1B3A1B] flex items-center justify-center shadow-neon-sm animate-pulse">
             <span className="text-xl font-black text-white">LF</span>
           </div>
           <p className="text-gradient font-bold">Carregando...</p>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
         {/* Balance hero */}
         <div className="border-neon rounded-2xl p-5 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Wallet size={16} className="text-amber-500" />
+            <Wallet size={16} className="text-[#B07D10]" />
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Saldo Total</p>
           </div>
           <p className={`text-4xl font-black mb-1 ${(data?.totalBalance ?? 0) >= 0 ? "text-emerald-600" : "text-red-500"}`}>
@@ -76,7 +76,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-3 gap-3">
           <StatsCard title="Receitas" value={data?.monthIncome ?? 0} icon={TrendingUp} isCurrency color="green" />
           <StatsCard title="Despesas" value={data?.monthExpense ?? 0} icon={TrendingDown} isCurrency color="red" />
-          <StatsCard title="Tarefas" value={(data?.taskCounts.todo ?? 0) + (data?.taskCounts.doing ?? 0)} icon={CheckSquare} color="purple" subtitle={`${data?.taskCounts.done ?? 0} feitas`} />
+          <StatsCard title="Tarefas" value={(data?.taskCounts.todo ?? 0) + (data?.taskCounts.doing ?? 0)} icon={CheckSquare} color="forest" subtitle={`${data?.taskCounts.done ?? 0} feitas`} />
         </div>
 
         {/* Charts */}
@@ -86,17 +86,17 @@ export default function DashboardPage() {
         {/* Upcoming tasks */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-800">Próximas Tarefas</h3>
-            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Próximas Tarefas</h3>
+            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-[#1B3A1B] hover:text-[#B07D10] font-medium transition-colors">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
             {data?.upcomingTasks?.length ? data.upcomingTasks.map(task => (
-              <div key={task.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+              <div key={task.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)]">
                 <div className={`w-2 h-2 rounded-full flex-shrink-0 ${priorityDot[task.priority] || "bg-gray-400"}`} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-800 font-medium truncate">{task.title}</p>
+                  <p className="text-sm text-[#0E1A0A] font-medium truncate">{task.title}</p>
                   {task.dueDate && (
                     <p className="text-xs text-gray-400 flex items-center gap-1">
                       <Clock size={10} /> {formatDate(task.dueDate)}
@@ -116,17 +116,17 @@ export default function DashboardPage() {
         {/* Upcoming events */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-800">Próximos Eventos</h3>
-            <Link href="/agenda" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Próximos Eventos</h3>
+            <Link href="/agenda" className="flex items-center gap-1 text-xs text-[#1B3A1B] hover:text-[#B07D10] font-medium transition-colors">
               Ver agenda <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
             {data?.upcomingEvents?.length ? data.upcomingEvents.map(ev => (
-              <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+              <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)]">
                 <div className="w-1 h-10 rounded-full flex-shrink-0" style={{ background: ev.color }} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-800 font-medium truncate">{ev.title}</p>
+                  <p className="text-sm text-[#0E1A0A] font-medium truncate">{ev.title}</p>
                   <p className="text-xs text-gray-400 flex items-center gap-1"><Calendar size={10} /> {formatDateTime(ev.startDate)}</p>
                 </div>
               </div>
@@ -139,20 +139,20 @@ export default function DashboardPage() {
         {/* Recent transactions */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-800">Últimas Transações</h3>
-            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Últimas Transações</h3>
+            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-[#1B3A1B] hover:text-[#B07D10] font-medium transition-colors">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
             {data?.recentTransactions?.length ? data.recentTransactions.map(tx => (
-              <div key={tx.id} className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+              <div key={tx.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)]">
                 <div className="flex items-center gap-2.5">
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${tx.type === "income" ? "bg-emerald-50" : "bg-red-50"}`}>
                     {tx.type === "income" ? <TrendingUp size={15} className="text-emerald-600" /> : <TrendingDown size={15} className="text-red-500" />}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-800 font-medium">{tx.description}</p>
+                    <p className="text-sm text-[#0E1A0A] font-medium">{tx.description}</p>
                     <p className="text-xs text-gray-400">{tx.category}</p>
                   </div>
                 </div>

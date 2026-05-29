@@ -57,7 +57,7 @@ export default function FinanceiroPage() {
         {/* Balance hero */}
         <div className="border-gold rounded-2xl p-5 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Wallet size={16} className="text-amber-500" />
+            <Wallet size={16} className="text-[#B07D10]" />
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Saldo Total</p>
           </div>
           <p className={`text-4xl font-black mb-1 ${totalBalance >= 0 ? "text-emerald-600" : "text-red-500"}`}>
@@ -105,7 +105,7 @@ export default function FinanceiroPage() {
 
         {/* Transactions */}
         {loading ? (
-          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
+          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin mx-auto" /></div>
         ) : Object.keys(grouped).length > 0 ? (
           Object.entries(grouped).map(([date, txs]) => (
             <div key={date}>

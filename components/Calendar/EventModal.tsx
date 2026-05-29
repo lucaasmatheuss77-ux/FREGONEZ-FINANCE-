@@ -9,7 +9,7 @@ interface EventModalProps {
   onAdd: (e: { title: string; description?: string; startDate: string; endDate?: string; category: string; color: string }) => Promise<void>;
 }
 
-const EVENT_COLORS = ["#D97706","#2563EB","#06B6D4","#10B981","#F59E0B","#EC4899","#EF4444"];
+const EVENT_COLORS = ["#1B3A1B","#B07D10","#2563EB","#06B6D4","#10B981","#C8992A","#EF4444"];
 
 export function EventModal({ isOpen, onClose, selectedDate, onAdd }: EventModalProps) {
   const [title, setTitle] = useState(""); const [description, setDescription] = useState("");

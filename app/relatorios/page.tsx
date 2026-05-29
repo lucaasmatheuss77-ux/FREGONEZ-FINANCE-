@@ -52,7 +52,7 @@ export default function RelatoriosPage() {
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
@@ -79,15 +79,15 @@ export default function RelatoriosPage() {
         {/* Task completion */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-4">
-            <CheckSquare size={16} className="text-amber-500" />
-            <h3 className="text-sm font-bold text-gray-800">Produtividade</h3>
+            <CheckSquare size={16} className="text-[#B07D10]" />
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Produtividade</h3>
           </div>
           <div className="flex items-center gap-5">
             <div className="relative w-20 h-20 flex-shrink-0">
               <svg viewBox="0 0 36 36" className="w-20 h-20 -rotate-90">
-                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#F0F2FF" strokeWidth="3" />
+                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#EDE7DC" strokeWidth="3" />
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#progGrad)" strokeWidth="3" strokeDasharray={`${completionRate}, 100`} strokeLinecap="round" />
-                <defs><linearGradient id="progGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#D97706" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient></defs>
+                <defs><linearGradient id="progGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#B07D10" /><stop offset="100%" stopColor="#C8992A" /></linearGradient></defs>
               </svg>
               <div className="absolute inset-0 flex items-center justify-center"><span className="text-lg font-black text-gradient">{completionRate}%</span></div>
             </div>
@@ -98,7 +98,7 @@ export default function RelatoriosPage() {
                 <div key={item.label} className="flex items-center gap-2">
                   <div className={`w-2 h-2 rounded-full ${item.color}`} />
                   <span className="text-xs text-gray-500 flex-1">{item.label}</span>
-                  <span className="text-xs font-black text-gray-700">{item.value}</span>
+                  <span className="text-xs font-black text-[#0E1A0A]">{item.value}</span>
                 </div>
               ))}
             </div>
@@ -108,20 +108,20 @@ export default function RelatoriosPage() {
         {/* Balance evolution */}
         {balanceData.some(d => d.saldo !== 0) && (
           <Card className="p-4">
-            <h3 className="text-sm font-bold text-gray-800 mb-4">Evolução do Saldo</h3>
+            <h3 className="text-sm font-bold text-[#0E1A0A] mb-4">Evolução do Saldo</h3>
             <ResponsiveContainer width="100%" height={150}>
               <AreaChart data={balanceData}>
                 <defs>
                   <linearGradient id="balGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#D97706" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="#D97706" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#B07D10" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="#B07D10" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="month" tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis hide />
                 <Tooltip formatter={(v: number) => [formatCurrency(v), "Saldo"]}
-                  contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "10px", fontSize: 12, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }} />
-                <Area type="monotone" dataKey="saldo" stroke="#D97706" strokeWidth={2.5} fill="url(#balGrad)" dot={{ fill: "#D97706", strokeWidth: 0, r: 4 }} activeDot={{ r: 5, fill: "#D97706" }} />
+                  contentStyle={{ background: "#fff", border: "1px solid rgba(27,58,27,0.12)", borderRadius: "10px", fontSize: 12, boxShadow: "0 8px 24px rgba(27,58,27,0.08)" }} />
+                <Area type="monotone" dataKey="saldo" stroke="#B07D10" strokeWidth={2.5} fill="url(#balGrad)" dot={{ fill: "#B07D10", strokeWidth: 0, r: 4 }} activeDot={{ r: 5, fill: "#B07D10" }} />
               </AreaChart>
             </ResponsiveContainer>
           </Card>
@@ -134,21 +134,21 @@ export default function RelatoriosPage() {
         {data?.categoryData && data.categoryData.length > 0 && (
           <Card className="p-4">
             <div className="flex items-center gap-2 mb-4">
-              <Target size={16} className="text-amber-500" />
-              <h3 className="text-sm font-bold text-gray-800">Maiores Gastos</h3>
+              <Target size={16} className="text-[#B07D10]" />
+              <h3 className="text-sm font-bold text-[#0E1A0A]">Maiores Gastos</h3>
             </div>
             <div className="space-y-3">
               {data.categoryData.slice(0, 5).map((cat, i) => {
                 const total = data.categoryData.reduce((s,c) => s + c.value, 0);
                 const pct = total > 0 ? (cat.value / total) * 100 : 0;
-                const gradients = ["from-amber-500 to-yellow-400","from-blue-500 to-cyan-500","from-cyan-500 to-emerald-500","from-emerald-500 to-amber-500","from-amber-500 to-red-500"];
+                const gradients = ["from-[#B07D10] to-[#C8992A]","from-blue-500 to-cyan-500","from-cyan-500 to-emerald-500","from-emerald-500 to-[#1B3A1B]","from-[#1B3A1B] to-[#B07D10]"];
                 return (
                   <div key={cat.name}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="font-semibold text-gray-700">{cat.name}</span>
+                      <span className="font-semibold text-[#0E1A0A]">{cat.name}</span>
                       <span className="text-gray-400">{formatCurrency(cat.value)} <span className="text-gray-300">({pct.toFixed(0)}%)</span></span>
                     </div>
-                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-2 bg-[#EDE7DC] rounded-full overflow-hidden">
                       <div className={`h-full bg-gradient-to-r ${gradients[i]} rounded-full transition-all duration-700`} style={{ width: `${pct}%` }} />
                     </div>
                   </div>
@@ -161,15 +161,15 @@ export default function RelatoriosPage() {
         {/* Voice stats */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Mic size={16} className="text-cyan-500" />
-            <h3 className="text-sm font-bold text-gray-800">Uso do Assistente de Voz</h3>
+            <Mic size={16} className="text-[#1B3A1B]" />
+            <h3 className="text-sm font-bold text-[#0E1A0A]">Uso do Assistente de Voz</h3>
           </div>
           <div className="grid grid-cols-4 gap-2 text-center">
-            {[{ label:"Total",    value: audioStats.total,     color:"text-gray-700",    bg:"bg-gray-50"    },
-              { label:"Tarefas",  value: audioStats.task,      color:"text-[#4A5D23]",  bg:"bg-[#EEF2E6]"  },
+            {[{ label:"Total",    value: audioStats.total,     color:"text-[#0E1A0A]",  bg:"bg-[#FAF7F2]"  },
+              { label:"Tarefas",  value: audioStats.task,      color:"text-[#1B3A1B]",  bg:"bg-[#E6EDE6]"  },
               { label:"Eventos",  value: audioStats.event,     color:"text-blue-600",    bg:"bg-blue-50"    },
               { label:"Finanças", value: audioStats.financial, color:"text-emerald-600", bg:"bg-emerald-50" }].map(s => (
-              <div key={s.label} className={`${s.bg} rounded-xl p-2.5 border border-gray-100`}>
+              <div key={s.label} className={`${s.bg} rounded-xl p-2.5 border border-[rgba(27,58,27,0.08)]`}>
                 <p className={`text-xl font-black ${s.color}`}>{s.value}</p>
                 <p className="text-[10px] text-gray-400 font-medium mt-0.5">{s.label}</p>
               </div>
