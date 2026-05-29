@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0A0A14;
+  --foreground: #E2E8F0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0A0A14;
+  color: #E2E8F0;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.text-metallic {
+  background: linear-gradient(135deg, #F59E0B, #CD7F32, #F59E0B, #FDE68A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #7C3AED, #2563EB, #06B6D4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(15, 15, 30, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 16px;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: rgba(15, 15, 30, 0.5); }
+::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.5); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.8); }
+
+.animated-bg {
+  background: radial-gradient(ellipse at top, rgba(124,58,237,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom-right, rgba(37,99,235,0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom-left, rgba(6,182,212,0.08) 0%, transparent 50%),
+              #0A0A14;
+  min-height: 100vh;
+}
+
+.border-neon {
+  border: 1px solid transparent;
+  background: linear-gradient(#0A0A14, #0A0A14) padding-box,
+              linear-gradient(135deg, #7C3AED, #2563EB, #06B6D4) border-box;
+}
+
+.border-gold {
+  border: 1px solid transparent;
+  background: linear-gradient(rgba(15,15,26,0.9), rgba(15,15,26,0.9)) padding-box,
+              linear-gradient(135deg, #F59E0B, #CD7F32, #F59E0B) border-box;
+}
+
+@keyframes recording-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); }
+  50% { box-shadow: 0 0 0 20px rgba(239,68,68,0); }
+}
+
+.recording-pulse { animation: recording-pulse 1.5s ease-in-out infinite; }
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(124,58,237,0.4); }
+  50% { box-shadow: 0 0 40px rgba(124,58,237,0.8), 0 0 80px rgba(37,99,235,0.3); }
+}
+
+.glow-animate { animation: glow-pulse 2s ease-in-out infinite; }
