@@ -7,10 +7,10 @@ interface BadgeProps {
 }
 
 const variants = {
-  purple: "bg-amber-50 text-amber-700 border-amber-200",
+  purple: "bg-[#EEF2E6] text-[#3A4D1A] border-[#C5D4A0]",
   blue: "bg-blue-50 text-blue-700 border-blue-200",
   green: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  yellow: "bg-amber-50 text-amber-700 border-amber-200",
+  yellow: "bg-[#EEF2E6] text-[#3A4D1A] border-[#C5D4A0]",
   red: "bg-red-50 text-red-600 border-red-200",
   gray: "bg-gray-100 text-gray-600 border-gray-200",
   cyan: "bg-cyan-50 text-cyan-700 border-cyan-200",

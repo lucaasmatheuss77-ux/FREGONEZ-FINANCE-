@@ -20,9 +20,9 @@ export function TopBar({ title, subtitle }: TopBarProps) {
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <button className="w-9 h-9 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center text-gray-400 hover:text-amber-600 hover:border-amber-200 transition-all relative">
+        <button className="w-9 h-9 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center text-gray-400 hover:text-[#4A5D23] hover:border-[#C5D4A0] transition-all relative">
           <Bell size={16} />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-amber-500 rounded-full" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#EEF2E6]0 rounded-full" />
         </button>
         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-500 flex items-center justify-center text-white font-black text-sm shadow-neon-sm">
           LF

@@ -166,7 +166,7 @@ export default function RelatoriosPage() {
           </div>
           <div className="grid grid-cols-4 gap-2 text-center">
             {[{ label:"Total",    value: audioStats.total,     color:"text-gray-700",    bg:"bg-gray-50"    },
-              { label:"Tarefas",  value: audioStats.task,      color:"text-amber-600",  bg:"bg-amber-50"  },
+              { label:"Tarefas",  value: audioStats.task,      color:"text-[#4A5D23]",  bg:"bg-[#EEF2E6]"  },
               { label:"Eventos",  value: audioStats.event,     color:"text-blue-600",    bg:"bg-blue-50"    },
               { label:"Finanças", value: audioStats.financial, color:"text-emerald-600", bg:"bg-emerald-50" }].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-2.5 border border-gray-100`}>

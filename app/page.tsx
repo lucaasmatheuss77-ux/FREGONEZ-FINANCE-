@@ -87,7 +87,7 @@ export default function DashboardPage() {
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-gray-800">Próximas Tarefas</h3>
-            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-amber-600 hover:text-amber-800 font-medium">
+            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>
@@ -117,7 +117,7 @@ export default function DashboardPage() {
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-gray-800">Próximos Eventos</h3>
-            <Link href="/agenda" className="flex items-center gap-1 text-xs text-amber-600 hover:text-amber-800 font-medium">
+            <Link href="/agenda" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
               Ver agenda <ArrowRight size={12} />
             </Link>
           </div>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
         <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-gray-800">Últimas Transações</h3>
-            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-amber-600 hover:text-amber-800 font-medium">
+            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-[#4A5D23] hover:text-amber-800 font-medium">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>

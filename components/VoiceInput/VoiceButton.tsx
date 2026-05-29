@@ -97,10 +97,10 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
   }, []);
 
   const actionConfig: Record<string, { label: string; color: string; bg: string }> = {
-    task:      { label: "✅ Tarefa criada",     color: "text-amber-700", bg: "bg-amber-50 border-amber-200" },
+    task:      { label: "✅ Tarefa criada",     color: "text-[#3A4D1A]", bg: "bg-[#EEF2E6] border-[#C5D4A0]" },
     event:     { label: "📅 Evento adicionado", color: "text-blue-700",   bg: "bg-blue-50 border-blue-200"    },
     financial: { label: "💰 Transação lançada", color: "text-emerald-700",bg: "bg-emerald-50 border-emerald-200" },
-    note:      { label: "📝 Nota salva",        color: "text-amber-700",  bg: "bg-amber-50 border-amber-200"  },
+    note:      { label: "📝 Nota salva",        color: "text-[#3A4D1A]",  bg: "bg-[#EEF2E6] border-[#C5D4A0]"  },
   };
 
   return (
@@ -129,12 +129,12 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
             {/* UNSUPPORTED */}
             {state === "unsupported" && (
               <>
-                <div className="w-24 h-24 rounded-full bg-amber-50 border-2 border-amber-200 flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full bg-[#EEF2E6] border-2 border-[#C5D4A0] flex items-center justify-center">
                   <AlertCircle size={44} className="text-amber-400" />
                 </div>
-                <div className="text-center bg-amber-50 border border-amber-200 rounded-2xl p-4">
-                  <p className="text-amber-700 font-bold text-sm mb-1">Microfone não suportado</p>
-                  <p className="text-amber-600 text-xs">Use Chrome ou Safari para usar o assistente de voz</p>
+                <div className="text-center bg-[#EEF2E6] border border-[#C5D4A0] rounded-2xl p-4">
+                  <p className="text-[#3A4D1A] font-bold text-sm mb-1">Microfone não suportado</p>
+                  <p className="text-[#4A5D23] text-xs">Use Chrome ou Safari para usar o assistente de voz</p>
                 </div>
                 <Button onClick={onClose} variant="secondary" className="w-full">Fechar</Button>
               </>
@@ -191,11 +191,11 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
             {/* PROCESSING */}
             {state === "processing" && (
               <>
-                <div className="w-28 h-28 rounded-full bg-amber-50 border-2 border-amber-200 flex items-center justify-center">
-                  <Loader2 size={44} className="text-amber-600 animate-spin" />
+                <div className="w-28 h-28 rounded-full bg-[#EEF2E6] border-2 border-[#C5D4A0] flex items-center justify-center">
+                  <Loader2 size={44} className="text-[#4A5D23] animate-spin" />
                 </div>
                 <div className="text-center">
-                  <p className="text-amber-700 font-bold">Processando com IA...</p>
+                  <p className="text-[#3A4D1A] font-bold">Processando com IA...</p>
                   <p className="text-gray-400 text-sm">Interpretando e salvando</p>
                 </div>
                 {transcript && (
@@ -218,10 +218,10 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
                     <p className="text-xs text-gray-400 mb-1 font-medium">Você disse:</p>
                     <p className="text-sm text-gray-700 italic">&ldquo;{result.transcription}&rdquo;</p>
                   </div>
-                  <div className={`rounded-xl p-3 border ${actionConfig[result.action]?.bg || "bg-amber-50 border-amber-200"}`}>
+                  <div className={`rounded-xl p-3 border ${actionConfig[result.action]?.bg || "bg-[#EEF2E6] border-[#C5D4A0]"}`}>
                     <div className="flex items-center gap-2 mb-1">
-                      <Wand2 size={14} className={actionConfig[result.action]?.color || "text-amber-700"} />
-                      <span className={`text-xs font-bold ${actionConfig[result.action]?.color || "text-amber-700"}`}>
+                      <Wand2 size={14} className={actionConfig[result.action]?.color || "text-[#3A4D1A]"} />
+                      <span className={`text-xs font-bold ${actionConfig[result.action]?.color || "text-[#3A4D1A]"}`}>
                         {actionConfig[result.action]?.label || "Criado"}
                       </span>
                     </div>

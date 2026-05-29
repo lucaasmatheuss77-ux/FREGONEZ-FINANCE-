@@ -29,13 +29,13 @@ export function BottomNav() {
                 <Link key={href} href={href} className="flex-1">
                   <div className={cn(
                     "flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition-all duration-200",
-                    active ? "text-amber-600" : "text-gray-400 hover:text-gray-600"
+                    active ? "text-[#4A5D23]" : "text-gray-400 hover:text-gray-600"
                   )}>
-                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-amber-50")}>
+                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#EEF2E6]")}>
                       <Icon size={20} strokeWidth={active ? 2.5 : 2} />
                     </div>
-                    <span className={cn("text-[10px] font-medium", active ? "text-amber-600" : "text-gray-400")}>{label}</span>
-                    {active && <div className="w-1 h-1 rounded-full bg-amber-500" />}
+                    <span className={cn("text-[10px] font-medium", active ? "text-[#4A5D23]" : "text-gray-400")}>{label}</span>
+                    {active && <div className="w-1 h-1 rounded-full bg-[#EEF2E6]0" />}
                   </div>
                 </Link>
               );
@@ -58,13 +58,13 @@ export function BottomNav() {
                 <Link key={href} href={href} className="flex-1">
                   <div className={cn(
                     "flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition-all duration-200",
-                    active ? "text-amber-600" : "text-gray-400 hover:text-gray-600"
+                    active ? "text-[#4A5D23]" : "text-gray-400 hover:text-gray-600"
                   )}>
-                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-amber-50")}>
+                    <div className={cn("p-1.5 rounded-xl transition-all", active && "bg-[#EEF2E6]")}>
                       <Icon size={20} strokeWidth={active ? 2.5 : 2} />
                     </div>
-                    <span className={cn("text-[10px] font-medium", active ? "text-amber-600" : "text-gray-400")}>{label}</span>
-                    {active && <div className="w-1 h-1 rounded-full bg-amber-500" />}
+                    <span className={cn("text-[10px] font-medium", active ? "text-[#4A5D23]" : "text-gray-400")}>{label}</span>
+                    {active && <div className="w-1 h-1 rounded-full bg-[#EEF2E6]0" />}
                   </div>
                 </Link>
               );

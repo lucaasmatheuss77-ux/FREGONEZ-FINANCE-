@@ -89,7 +89,7 @@ export default function AgendaPage() {
               return (
                 <button key={i} onClick={() => { setSelectedDate(dateStr); if (!dayEvs.length) setShowModal(true); }}
                   className={cn("flex flex-col items-center py-1.5 rounded-xl transition-all",
-                    isToday ? "bg-gradient-to-br from-amber-600 to-yellow-500 shadow-neon-sm" : isSel ? "bg-amber-50 border border-amber-200" : "hover:bg-gray-50"
+                    isToday ? "bg-gradient-to-br from-amber-600 to-yellow-500 shadow-neon-sm" : isSel ? "bg-[#EEF2E6] border border-[#C5D4A0]" : "hover:bg-gray-50"
                   )}>
                   <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-gray-700")}>{day}</span>
                   {dayEvs.length > 0 && (
