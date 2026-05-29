@@ -94,31 +94,31 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
   }, []);
 
   const actionConfig: Record<string, { label: string; color: string; bg: string }> = {
-    task:      { label: "✅ Tarefa criada",     color: "text-[#1B3A1B]",  bg: "bg-[#E6EDE6] border-[#B8D0B8]"  },
+    task:      { label: "✅ Tarefa criada",     color: "text-[#1A2E1A]",  bg: "bg-[#EEF2EE] border-[#B8CFBA]"  },
     event:     { label: "📅 Evento adicionado", color: "text-blue-700",   bg: "bg-blue-50 border-blue-200"      },
     financial: { label: "💰 Transação lançada", color: "text-emerald-700",bg: "bg-emerald-50 border-emerald-200" },
-    note:      { label: "📝 Nota salva",        color: "text-[#1B3A1B]",  bg: "bg-[#E6EDE6] border-[#B8D0B8]"  },
+    note:      { label: "📝 Nota salva",        color: "text-[#1A2E1A]",  bg: "bg-[#EEF2EE] border-[#B8CFBA]"  },
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-sm bg-white rounded-t-3xl shadow-[0_-8px_60px_rgba(27,58,27,0.18)] border-t border-x border-[rgba(27,58,27,0.12)] pb-8">
+      <div className="relative w-full max-w-sm bg-white rounded-t-3xl shadow-[0_-8px_60px_rgba(27,58,27,0.18)] border-t border-x border-[#D6D0C8] pb-8">
         <div className="flex justify-center pt-3 pb-1">
           <div className="w-10 h-1 rounded-full bg-gray-200" />
         </div>
-        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-xl text-[#9C968E] hover:text-[#3A3630] hover:bg-[#EDE8E1] transition-colors">
           <X size={18} />
         </button>
 
         <div className="px-6 pt-2 pb-4">
           <div className="text-center mb-5">
             <div className="flex items-center justify-center gap-2 mb-1">
-              <Sparkles size={15} className="text-[#B07D10]" />
+              <Sparkles size={15} className="text-[#B8882A]" />
               <h3 className="text-xl font-black text-gradient">Assistente de Voz</h3>
-              <Sparkles size={15} className="text-[#1B3A1B]" />
+              <Sparkles size={15} className="text-[#1A2E1A]" />
             </div>
-            <p className="text-xs text-gray-400">Fale uma tarefa, evento ou gasto</p>
+            <p className="text-xs text-[#9C968E]">Fale uma tarefa, evento ou gasto</p>
           </div>
 
           <div className="flex flex-col items-center gap-5">
@@ -126,12 +126,12 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
             {/* UNSUPPORTED */}
             {state === "unsupported" && (
               <>
-                <div className="w-24 h-24 rounded-full bg-[#E6EDE6] border-2 border-[#B8D0B8] flex items-center justify-center">
-                  <AlertCircle size={44} className="text-[#B07D10]" />
+                <div className="w-24 h-24 rounded-full bg-[#EEF2EE] border-2 border-[#B8CFBA] flex items-center justify-center">
+                  <AlertCircle size={44} className="text-[#B8882A]" />
                 </div>
-                <div className="text-center bg-[#E6EDE6] border border-[#B8D0B8] rounded-2xl p-4">
-                  <p className="text-[#1B3A1B] font-bold text-sm mb-1">Microfone não suportado</p>
-                  <p className="text-[#2A5C2A] text-xs">Use Chrome ou Safari para usar o assistente de voz</p>
+                <div className="text-center bg-[#EEF2EE] border border-[#B8CFBA] rounded-2xl p-4">
+                  <p className="text-[#1A2E1A] font-bold text-sm mb-1">Microfone não suportado</p>
+                  <p className="text-[#2D5230] text-xs">Use Chrome ou Safari para usar o assistente de voz</p>
                 </div>
                 <Button onClick={onClose} variant="secondary" className="w-full">Fechar</Button>
               </>
@@ -141,13 +141,13 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
             {state === "idle" && (
               <>
                 <button onClick={startRecording}
-                  className="w-28 h-28 rounded-full bg-gradient-to-br from-[#7A5B08] via-[#B07D10] to-[#C8992A] flex items-center justify-center shadow-btn hover:shadow-btn-hover hover:scale-110 active:scale-95 transition-all duration-300 border-4 border-white">
+                  className="w-28 h-28 rounded-full bg-gradient-to-br from-[#8A6418] via-[#B8882A] to-[#D4A84B] flex items-center justify-center shadow-btn hover:shadow-btn-hover hover:scale-110 active:scale-95 transition-all duration-300 border-4 border-white">
                   <Mic size={44} className="text-white" strokeWidth={2} />
                 </button>
-                <p className="text-gray-400 text-sm font-medium">Toque para gravar</p>
+                <p className="text-[#9C968E] text-sm font-medium">Toque para gravar</p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   {['"Reunião amanhã 10h"', '"Gastei 50 no almoço"', '"Ligar pro João"'].map(ex => (
-                    <span key={ex} className="text-xs bg-[#F5EDD0] border border-[#DEC87A] text-[#7A5B08] px-3 py-1 rounded-full">{ex}</span>
+                    <span key={ex} className="text-xs bg-[#F0DFA8] border border-[#D6C080] text-[#8A6418] px-3 py-1 rounded-full">{ex}</span>
                   ))}
                 </div>
               </>
@@ -167,18 +167,18 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
                   <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                   <span className="text-red-500 font-bold text-sm">Ouvindo...</span>
                 </div>
-                <div className="w-full min-h-[60px] bg-[#FAF7F2] border border-[rgba(27,58,27,0.10)] rounded-2xl p-3">
+                <div className="w-full min-h-[60px] bg-[#FDFCFB] border border-[#E0DCD6] rounded-2xl p-3">
                   {(transcript || interimText) ? (
-                    <p className="text-sm text-[#0E1A0A] leading-relaxed">
+                    <p className="text-sm text-[#1C1A17] leading-relaxed">
                       <span className="font-medium">{transcript}</span>
-                      <span className="text-gray-400 italic">{interimText}</span>
+                      <span className="text-[#9C968E] italic">{interimText}</span>
                     </p>
                   ) : (
-                    <p className="text-sm text-gray-300 italic text-center mt-2">Fale algo...</p>
+                    <p className="text-sm text-[#C0BAB2] italic text-center mt-2">Fale algo...</p>
                   )}
                 </div>
                 <button onClick={stopRecording}
-                  className="text-sm text-[#1B3A1B] hover:text-[#0E2A0E] font-medium underline underline-offset-2">
+                  className="text-sm text-[#1A2E1A] hover:text-[#0E1E0E] font-medium underline underline-offset-2">
                   Parar e processar
                 </button>
               </>
@@ -187,17 +187,17 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
             {/* PROCESSING */}
             {state === "processing" && (
               <>
-                <div className="w-28 h-28 rounded-full bg-[#E6EDE6] border-2 border-[#B8D0B8] flex items-center justify-center">
-                  <Loader2 size={44} className="text-[#1B3A1B] animate-spin" />
+                <div className="w-28 h-28 rounded-full bg-[#EEF2EE] border-2 border-[#B8CFBA] flex items-center justify-center">
+                  <Loader2 size={44} className="text-[#1A2E1A] animate-spin" />
                 </div>
                 <div className="text-center">
-                  <p className="text-[#1B3A1B] font-bold">Processando com IA...</p>
-                  <p className="text-gray-400 text-sm">Interpretando e salvando</p>
+                  <p className="text-[#1A2E1A] font-bold">Processando com IA...</p>
+                  <p className="text-[#9C968E] text-sm">Interpretando e salvando</p>
                 </div>
                 {transcript && (
-                  <div className="w-full bg-[#FAF7F2] border border-[rgba(27,58,27,0.10)] rounded-xl p-3">
-                    <p className="text-xs text-gray-400 mb-1">Transcrito:</p>
-                    <p className="text-sm text-[#0E1A0A] italic">&ldquo;{transcript}&rdquo;</p>
+                  <div className="w-full bg-[#FDFCFB] border border-[#E0DCD6] rounded-xl p-3">
+                    <p className="text-xs text-[#9C968E] mb-1">Transcrito:</p>
+                    <p className="text-sm text-[#1C1A17] italic">&ldquo;{transcript}&rdquo;</p>
                   </div>
                 )}
               </>
@@ -210,18 +210,18 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
                   <CheckCircle size={44} className="text-emerald-500" />
                 </div>
                 <div className="w-full space-y-3">
-                  <div className="bg-[#FAF7F2] rounded-xl p-3 border border-[rgba(27,58,27,0.08)]">
-                    <p className="text-xs text-gray-400 mb-1 font-medium">Você disse:</p>
-                    <p className="text-sm text-[#0E1A0A] italic">&ldquo;{result.transcription}&rdquo;</p>
+                  <div className="bg-[#FDFCFB] rounded-xl p-3 border border-[#E8E4DE]">
+                    <p className="text-xs text-[#9C968E] mb-1 font-medium">Você disse:</p>
+                    <p className="text-sm text-[#1C1A17] italic">&ldquo;{result.transcription}&rdquo;</p>
                   </div>
-                  <div className={`rounded-xl p-3 border ${actionConfig[result.action]?.bg || "bg-[#E6EDE6] border-[#B8D0B8]"}`}>
+                  <div className={`rounded-xl p-3 border ${actionConfig[result.action]?.bg || "bg-[#EEF2EE] border-[#B8CFBA]"}`}>
                     <div className="flex items-center gap-2 mb-1">
-                      <Wand2 size={14} className={actionConfig[result.action]?.color || "text-[#1B3A1B]"} />
-                      <span className={`text-xs font-bold ${actionConfig[result.action]?.color || "text-[#1B3A1B]"}`}>
+                      <Wand2 size={14} className={actionConfig[result.action]?.color || "text-[#1A2E1A]"} />
+                      <span className={`text-xs font-bold ${actionConfig[result.action]?.color || "text-[#1A2E1A]"}`}>
                         {actionConfig[result.action]?.label || "Criado"}
                       </span>
                     </div>
-                    <p className="text-sm text-[#0E1A0A]">{result.summary}</p>
+                    <p className="text-sm text-[#1C1A17]">{result.summary}</p>
                   </div>
                 </div>
                 <Button onClick={onClose} className="w-full">Perfeito!</Button>

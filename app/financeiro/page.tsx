@@ -57,8 +57,8 @@ export default function FinanceiroPage() {
         {/* Balance hero */}
         <div className="border-gold rounded-2xl p-5 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Wallet size={16} className="text-[#B07D10]" />
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Saldo Total</p>
+            <Wallet size={16} className="text-[#B8882A]" />
+            <p className="text-xs font-bold text-[#9C968E] uppercase tracking-widest">Saldo Total</p>
           </div>
           <p className={`text-4xl font-black mb-1 ${totalBalance >= 0 ? "text-emerald-600" : "text-red-500"}`}>
             {formatCurrency(totalBalance)}
@@ -72,7 +72,7 @@ export default function FinanceiroPage() {
               <div className="w-8 h-8 bg-emerald-50 rounded-xl flex items-center justify-center">
                 <TrendingUp size={15} className="text-emerald-600" />
               </div>
-              <span className="text-xs text-gray-400 font-medium">Receitas (mês)</span>
+              <span className="text-xs text-[#9C968E] font-medium">Receitas (mês)</span>
             </div>
             <p className="text-xl font-black text-emerald-600">{formatCurrency(monthIncome)}</p>
           </Card>
@@ -81,7 +81,7 @@ export default function FinanceiroPage() {
               <div className="w-8 h-8 bg-red-50 rounded-xl flex items-center justify-center">
                 <TrendingDown size={15} className="text-red-500" />
               </div>
-              <span className="text-xs text-gray-400 font-medium">Despesas (mês)</span>
+              <span className="text-xs text-[#9C968E] font-medium">Despesas (mês)</span>
             </div>
             <p className="text-xl font-black text-red-500">{formatCurrency(monthExpense)}</p>
           </Card>
@@ -90,13 +90,13 @@ export default function FinanceiroPage() {
         <Button onClick={() => setShowModal(true)} className="w-full"><Plus size={16} /> Nova Transação</Button>
 
         {/* Filter */}
-        <div className="flex bg-gray-50 border border-gray-100 rounded-xl p-1 gap-1">
+        <div className="flex bg-[#F7F4EF] border border-[#E8E4DE] rounded-xl p-1 gap-1">
           {(["all","income","expense"] as const).map(f => (
             <button key={f} onClick={() => setFilter(f)}
               className={cn("flex-1 py-2 rounded-lg text-xs font-bold transition-all",
                 filter === f
-                  ? f === "income" ? "bg-emerald-500 text-white shadow-sm" : f === "expense" ? "bg-red-500 text-white shadow-sm" : "bg-white shadow-sm text-gray-800 border border-gray-100"
-                  : "text-gray-400 hover:text-gray-600"
+                  ? f === "income" ? "bg-emerald-500 text-white shadow-sm" : f === "expense" ? "bg-red-500 text-white shadow-sm" : "bg-white shadow-sm text-[#1C1A17] border border-[#E8E4DE]"
+                  : "text-[#9C968E] hover:text-[#5C5449]"
               )}>
               {f === "all" ? "Todas" : f === "income" ? "Receitas" : "Despesas"}
             </button>
@@ -105,14 +105,14 @@ export default function FinanceiroPage() {
 
         {/* Transactions */}
         {loading ? (
-          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin mx-auto" /></div>
+          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-[#B8882A] border-t-transparent rounded-full animate-spin mx-auto" /></div>
         ) : Object.keys(grouped).length > 0 ? (
           Object.entries(grouped).map(([date, txs]) => (
             <div key={date}>
               <div className="flex items-center gap-2 mb-2">
-                <div className="h-px flex-1 bg-gray-100" />
-                <span className="text-xs text-gray-400 font-semibold">{date}</span>
-                <div className="h-px flex-1 bg-gray-100" />
+                <div className="h-px flex-1 bg-[#EDE8E1]" />
+                <span className="text-xs text-[#9C968E] font-semibold">{date}</span>
+                <div className="h-px flex-1 bg-[#EDE8E1]" />
               </div>
               <div className="space-y-2">
                 {txs.map(tx => (
@@ -123,15 +123,15 @@ export default function FinanceiroPage() {
                           {tx.type === "income" ? <TrendingUp size={18} className="text-emerald-600" /> : <TrendingDown size={18} className="text-red-500" />}
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-gray-800">{tx.description}</p>
-                          <p className="text-xs text-gray-400">{tx.category}</p>
+                          <p className="text-sm font-semibold text-[#1C1A17]">{tx.description}</p>
+                          <p className="text-xs text-[#9C968E]">{tx.category}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className={cn("text-sm font-black", tx.type === "income" ? "text-emerald-600" : "text-red-500")}>
                           {tx.type === "income" ? "+" : "-"}{formatCurrency(tx.amount)}
                         </span>
-                        <button onClick={() => handleDelete(tx.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all">
+                        <button onClick={() => handleDelete(tx.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-[#C0BAB2] hover:text-red-500 hover:bg-red-50 transition-all">
                           <Trash2 size={14} />
                         </button>
                       </div>
@@ -144,8 +144,8 @@ export default function FinanceiroPage() {
         ) : (
           <Card className="p-10 text-center">
             <Wallet size={36} className="text-gray-200 mx-auto mb-3" />
-            <p className="text-gray-400 font-medium">Nenhuma transação</p>
-            <p className="text-gray-300 text-sm mt-1">Adicione sua primeira transação</p>
+            <p className="text-[#9C968E] font-medium">Nenhuma transação</p>
+            <p className="text-[#C0BAB2] text-sm mt-1">Adicione sua primeira transação</p>
           </Card>
         )}
       </div>

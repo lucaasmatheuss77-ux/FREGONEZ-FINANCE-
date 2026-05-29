@@ -13,10 +13,10 @@ interface StatsCardProps {
 }
 
 const colorMap = {
-  forest: { icon: "text-[#1B3A1B]", bg: "bg-[#E6EDE6]", border: "border-[#B8D0B8]" },
+  forest: { icon: "text-[#1A2E1A]", bg: "bg-[#EEF2EE]", border: "border-[#B8CFBA]" },
   blue:   { icon: "text-blue-600",   bg: "bg-blue-50",   border: "border-blue-100"   },
   green:  { icon: "text-emerald-600",bg: "bg-emerald-50",border: "border-emerald-100" },
-  gold:   { icon: "text-[#B07D10]",  bg: "bg-[#F5EDD0]", border: "border-[#DEC87A]"  },
+  gold:   { icon: "text-[#B8882A]",  bg: "bg-[#F0DFA8]", border: "border-[#D6C080]"  },
   red:    { icon: "text-red-500",    bg: "bg-red-50",    border: "border-red-100"    },
   cyan:   { icon: "text-cyan-600",   bg: "bg-cyan-50",   border: "border-cyan-100"   },
 };
@@ -39,9 +39,9 @@ export function StatsCard({ title, value, icon: Icon, trend, isCurrency, color =
           </div>
         )}
       </div>
-      <p className="text-gray-400 text-xs font-medium mb-0.5">{title}</p>
-      <p className="text-xl font-black text-[#0E1A0A] truncate">{display}</p>
-      {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+      <p className="text-[#9C968E] text-xs font-medium mb-0.5">{title}</p>
+      <p className="text-xl font-black text-[#1C1A17] truncate">{display}</p>
+      {subtitle && <p className="text-xs text-[#9C968E] mt-0.5">{subtitle}</p>}
     </Card>
   );
 }

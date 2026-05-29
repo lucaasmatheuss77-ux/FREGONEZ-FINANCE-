@@ -28,16 +28,16 @@ export function AddTaskModal({ isOpen, onClose, onAdd }: AddTaskModalProps) {
     <Modal isOpen={isOpen} onClose={onClose} title="Nova Tarefa">
       <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Título *</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Título *</label>
           <input className={inp} placeholder="O que precisa ser feito?" value={title} onChange={e => setTitle(e.target.value)} required autoFocus />
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Descrição</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Descrição</label>
           <textarea className={`${inp} resize-none`} placeholder="Detalhes opcionais..." rows={2} value={description} onChange={e => setDescription(e.target.value)} />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Prioridade</label>
+            <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Prioridade</label>
             <select className={`${inp} cursor-pointer`} value={priority} onChange={e => setPriority(e.target.value)}>
               <option value="high">🔴 Alta</option>
               <option value="medium">🟡 Média</option>
@@ -45,7 +45,7 @@ export function AddTaskModal({ isOpen, onClose, onAdd }: AddTaskModalProps) {
             </select>
           </div>
           <div>
-            <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Categoria</label>
+            <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Categoria</label>
             <select className={`${inp} cursor-pointer`} value={category} onChange={e => setCategory(e.target.value)}>
               <option value="">Nenhuma</option>
               {TASK_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -53,7 +53,7 @@ export function AddTaskModal({ isOpen, onClose, onAdd }: AddTaskModalProps) {
           </div>
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Prazo</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Prazo</label>
           <input type="datetime-local" className={inp} value={dueDate} onChange={e => setDueDate(e.target.value)} />
         </div>
         <div className="flex gap-2 pt-2">

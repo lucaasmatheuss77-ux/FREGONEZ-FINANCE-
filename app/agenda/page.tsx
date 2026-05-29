@@ -69,13 +69,13 @@ export default function AgendaPage() {
         {/* Calendar card */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-4">
-            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="p-1.5 rounded-xl hover:bg-[#E6EDE6] text-gray-400 transition-colors"><ChevronLeft size={18} /></button>
-            <h2 className="font-black text-[#0E1A0A]">{MONTHS[month]} {year}</h2>
-            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="p-1.5 rounded-xl hover:bg-[#E6EDE6] text-gray-400 transition-colors"><ChevronRight size={18} /></button>
+            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="p-1.5 rounded-xl hover:bg-[#EEF2EE] text-[#9C968E] transition-colors"><ChevronLeft size={18} /></button>
+            <h2 className="font-black text-[#1C1A17]">{MONTHS[month]} {year}</h2>
+            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="p-1.5 rounded-xl hover:bg-[#EEF2EE] text-[#9C968E] transition-colors"><ChevronRight size={18} /></button>
           </div>
 
           <div className="grid grid-cols-7 mb-2">
-            {DAYS.map((d, i) => <div key={i} className="text-center text-xs font-bold text-gray-300 py-1">{d}</div>)}
+            {DAYS.map((d, i) => <div key={i} className="text-center text-xs font-bold text-[#C0BAB2] py-1">{d}</div>)}
           </div>
 
           <div className="grid grid-cols-7 gap-y-1">
@@ -89,9 +89,9 @@ export default function AgendaPage() {
               return (
                 <button key={i} onClick={() => { setSelectedDate(dateStr); if (!dayEvs.length) setShowModal(true); }}
                   className={cn("flex flex-col items-center py-1.5 rounded-xl transition-all",
-                    isToday ? "bg-[#1B3A1B] shadow-neon-sm" : isSel ? "bg-[#E6EDE6] border border-[#B8D0B8]" : "hover:bg-[#F5EDD0]"
+                    isToday ? "bg-[#1A2E1A] shadow-neon-sm" : isSel ? "bg-[#EEF2EE] border border-[#B8CFBA]" : "hover:bg-[#F0DFA8]"
                   )}>
-                  <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-[#0E1A0A]")}>{day}</span>
+                  <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-[#1C1A17]")}>{day}</span>
                   {dayEvs.length > 0 && (
                     <div className="flex gap-0.5 mt-0.5">
                       {dayEvs.slice(0,3).map((e,j) => <div key={j} className="w-1 h-1 rounded-full" style={{ background: e.color }} />)}
@@ -110,19 +110,19 @@ export default function AgendaPage() {
         {/* Selected day */}
         {selectedDate && selectedDayEvents.length > 0 && (
           <Card className="p-4">
-            <h3 className="text-sm font-bold text-[#0E1A0A] mb-3">
+            <h3 className="text-sm font-bold text-[#1C1A17] mb-3">
               {new Date(selectedDate).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })}
             </h3>
             <div className="space-y-2">
               {selectedDayEvents.map(ev => (
-                <div key={ev.id} className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)] group">
+                <div key={ev.id} className="flex items-start gap-3 p-3 rounded-xl bg-[#FDFCFB] border border-[#E8E4DE] group">
                   <div className="w-1 min-h-[40px] rounded-full flex-shrink-0" style={{ background: ev.color }} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#0E1A0A]">{ev.title}</p>
-                    {ev.description && <p className="text-xs text-gray-400 mt-0.5">{ev.description}</p>}
-                    <p className="text-xs text-gray-400 mt-1">{formatDateTime(ev.startDate)}</p>
+                    <p className="text-sm font-semibold text-[#1C1A17]">{ev.title}</p>
+                    {ev.description && <p className="text-xs text-[#9C968E] mt-0.5">{ev.description}</p>}
+                    <p className="text-xs text-[#9C968E] mt-1">{formatDateTime(ev.startDate)}</p>
                   </div>
-                  <button onClick={() => handleDelete(ev.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all">
+                  <button onClick={() => handleDelete(ev.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-[#C0BAB2] hover:text-red-500 hover:bg-red-50 transition-all">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -134,15 +134,15 @@ export default function AgendaPage() {
         {/* Upcoming events */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Calendar size={16} className="text-[#B07D10]" />
-            <h3 className="text-sm font-bold text-[#0E1A0A]">Próximos Eventos</h3>
+            <Calendar size={16} className="text-[#B8882A]" />
+            <h3 className="text-sm font-bold text-[#1C1A17]">Próximos Eventos</h3>
           </div>
           {loading ? (
-            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin mx-auto" /></div>
+            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-[#B8882A] border-t-transparent rounded-full animate-spin mx-auto" /></div>
           ) : upcoming.length > 0 ? (
             <div className="space-y-2">
               {upcoming.map(ev => (
-                <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FAF7F2] border border-[rgba(27,58,27,0.07)] group">
+                <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FDFCFB] border border-[#E8E4DE] group">
                   <div className="w-10 h-10 rounded-xl flex flex-col items-center justify-center flex-shrink-0" style={{ background: `${ev.color}18`, border: `1.5px solid ${ev.color}40` }}>
                     <span className="text-[11px] font-black" style={{ color: ev.color }}>{new Date(ev.startDate).getDate()}</span>
                     <span className="text-[9px] font-semibold" style={{ color: ev.color }}>
@@ -150,18 +150,18 @@ export default function AgendaPage() {
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-[#0E1A0A] font-semibold truncate">{ev.title}</p>
-                    <p className="text-xs text-gray-400">{formatDateTime(ev.startDate)}</p>
-                    <span className="text-xs text-gray-400">{EVENT_CATEGORY_LABELS[ev.category] || ev.category}</span>
+                    <p className="text-sm text-[#1C1A17] font-semibold truncate">{ev.title}</p>
+                    <p className="text-xs text-[#9C968E]">{formatDateTime(ev.startDate)}</p>
+                    <span className="text-xs text-[#9C968E]">{EVENT_CATEGORY_LABELS[ev.category] || ev.category}</span>
                   </div>
-                  <button onClick={() => handleDelete(ev.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all flex-shrink-0">
+                  <button onClick={() => handleDelete(ev.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-[#C0BAB2] hover:text-red-500 hover:bg-red-50 transition-all flex-shrink-0">
                     <Trash2 size={14} />
                   </button>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-300 text-sm py-4">Nenhum evento próximo</p>
+            <p className="text-center text-[#C0BAB2] text-sm py-4">Nenhum evento próximo</p>
           )}
         </Card>
       </div>

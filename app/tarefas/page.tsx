@@ -14,7 +14,7 @@ interface Task {
 }
 
 const columns = [
-  { key: "todo",  label: "A Fazer", dot: "bg-gray-400",    badge: "bg-gray-100 text-gray-600"    },
+  { key: "todo",  label: "A Fazer", dot: "bg-gray-400",    badge: "bg-[#EDE8E1] text-[#5C5449]"    },
   { key: "doing", label: "Fazendo", dot: "bg-blue-400",    badge: "bg-blue-50 text-blue-700"     },
   { key: "done",  label: "Feito",   dot: "bg-emerald-400", badge: "bg-emerald-50 text-emerald-700" },
 ];
@@ -70,7 +70,7 @@ export default function TarefasPage() {
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-[#B07D10] border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-[#B8882A] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
@@ -82,7 +82,7 @@ export default function TarefasPage() {
         {/* Search + Add */}
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9C968E]" />
             <input className="input-light pl-8" placeholder="Buscar tarefas..." value={search} onChange={e => setSearch(e.target.value)} />
           </div>
           <Button onClick={() => setShowModal(true)} size="md" className="px-3 flex-shrink-0">
@@ -91,18 +91,18 @@ export default function TarefasPage() {
         </div>
 
         {/* Column tabs */}
-        <div className="flex bg-gray-50 border border-gray-100 rounded-xl p-1 gap-1">
+        <div className="flex bg-[#F7F4EF] border border-[#E8E4DE] rounded-xl p-1 gap-1">
           {columns.map(col => {
             const count = getColTasks(col.key).length;
             const active = activeCol === col.key;
             return (
               <button key={col.key} onClick={() => setActiveCol(active ? null : col.key)}
                 className={cn("flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition-all",
-                  active ? "bg-white shadow-sm text-gray-800 border border-gray-100" : "text-gray-400 hover:text-gray-600"
+                  active ? "bg-white shadow-sm text-[#1C1A17] border border-[#E8E4DE]" : "text-[#9C968E] hover:text-[#5C5449]"
                 )}>
                 <span className={cn("w-1.5 h-1.5 rounded-full", col.dot)} />
                 {col.label}
-                <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-bold", active ? col.badge : "bg-gray-200 text-gray-500")}>{count}</span>
+                <span className={cn("px-1.5 py-0.5 rounded-full text-[10px] font-bold", active ? col.badge : "bg-gray-200 text-[#9C968E]")}>{count}</span>
               </button>
             );
           })}
@@ -117,16 +117,16 @@ export default function TarefasPage() {
               {!activeCol && (
                 <div className="flex items-center gap-2 mb-2">
                   <div className={cn("w-2 h-2 rounded-full", col.dot)} />
-                  <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider">{col.label}</h3>
-                  <span className="text-xs text-gray-400">({colTasks.length})</span>
+                  <h3 className="text-xs font-bold text-[#9C968E] uppercase tracking-wider">{col.label}</h3>
+                  <span className="text-xs text-[#9C968E]">({colTasks.length})</span>
                 </div>
               )}
               <div className="space-y-2">
                 {colTasks.length > 0 ? colTasks.map(task => (
                   <TaskCard key={task.id} task={task} onStatusChange={handleStatusChange} onDelete={handleDelete} />
                 )) : (
-                  <div className="bg-white rounded-2xl border border-gray-100 p-6 text-center">
-                    <p className="text-gray-300 text-sm">Nenhuma tarefa aqui</p>
+                  <div className="bg-white rounded-2xl border border-[#E8E4DE] p-6 text-center">
+                    <p className="text-[#C0BAB2] text-sm">Nenhuma tarefa aqui</p>
                   </div>
                 )}
               </div>

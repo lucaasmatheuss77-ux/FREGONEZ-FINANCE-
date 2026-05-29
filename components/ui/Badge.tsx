@@ -7,12 +7,12 @@ interface BadgeProps {
 }
 
 const variants = {
-  forest: "bg-[#E6EDE6] text-[#1B3A1B] border-[#B8D0B8]",
+  forest: "bg-[#EEF2EE] text-[#1A2E1A] border-[#B8CFBA]",
   blue:   "bg-blue-50 text-blue-700 border-blue-200",
   green:  "bg-emerald-50 text-emerald-700 border-emerald-200",
-  gold:   "bg-[#F5EDD0] text-[#7A5B08] border-[#DEC87A]",
+  gold:   "bg-[#F0DFA8] text-[#8A6418] border-[#D6C080]",
   red:    "bg-red-50 text-red-600 border-red-200",
-  gray:   "bg-gray-100 text-gray-600 border-gray-200",
+  gray:   "bg-[#EDE8E1] text-[#5C5449] border-[#D6D0C8]",
   cyan:   "bg-cyan-50 text-cyan-700 border-cyan-200",
 };
 

@@ -31,31 +31,31 @@ export function EventModal({ isOpen, onClose, selectedDate, onAdd }: EventModalP
     <Modal isOpen={isOpen} onClose={onClose} title="Novo Evento">
       <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Título *</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Título *</label>
           <input className={inp} placeholder="Nome do evento" value={title} onChange={e => setTitle(e.target.value)} required autoFocus />
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Descrição</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Descrição</label>
           <textarea className={`${inp} resize-none`} placeholder="Detalhes..." rows={2} value={description} onChange={e => setDescription(e.target.value)} />
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Início *</label>
+            <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Início *</label>
             <input type="datetime-local" className={inp} value={startDate} onChange={e => setStartDate(e.target.value)} required />
           </div>
           <div>
-            <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Fim</label>
+            <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Fim</label>
             <input type="datetime-local" className={inp} value={endDate} onChange={e => setEndDate(e.target.value)} />
           </div>
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Categoria</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Categoria</label>
           <select className={`${inp} cursor-pointer`} value={category} onChange={e => setCategory(e.target.value)}>
             {EVENT_CATEGORIES.map(c => <option key={c} value={c}>{EVENT_CATEGORY_LABELS[c]}</option>)}
           </select>
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1.5 block font-semibold">Cor do evento</label>
+          <label className="text-xs text-[#9C968E] mb-1.5 block font-semibold">Cor do evento</label>
           <div className="flex gap-2 flex-wrap">
             {EVENT_COLORS.map(c => (
               <button key={c} type="button" onClick={() => setColor(c)}

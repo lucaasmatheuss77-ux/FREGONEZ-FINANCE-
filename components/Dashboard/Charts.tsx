@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/Card";
 interface MonthlyData { month: string; receitas: number; despesas: number; }
 interface CategoryData { name: string; value: number; }
 
-const COLORS = ["#1B3A1B","#B07D10","#2563EB","#10B981","#C8992A","#06B6D4","#EF4444","#94A3B8"];
+const COLORS = ["#1A2E1A","#B8882A","#2563EB","#10B981","#D4A84B","#06B6D4","#EF4444","#94A3B8"];
 
 const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string }) => {
   if (!active || !payload?.length) return null;
@@ -24,7 +24,7 @@ const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?:
 export function FinancialBarChart({ data }: { data: MonthlyData[] }) {
   return (
     <Card className="p-4">
-      <h3 className="text-sm font-bold text-[#0E1A0A] mb-4">Receitas vs Despesas</h3>
+      <h3 className="text-sm font-bold text-[#1C1A17] mb-4">Receitas vs Despesas</h3>
       <ResponsiveContainer width="100%" height={180}>
         <BarChart data={data} barCategoryGap="30%">
           <XAxis dataKey="month" tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -49,7 +49,7 @@ export function FinancialBarChart({ data }: { data: MonthlyData[] }) {
 export function ExpensePieChart({ data }: { data: CategoryData[] }) {
   return (
     <Card className="p-4">
-      <h3 className="text-sm font-bold text-[#0E1A0A] mb-2">Gastos por Categoria</h3>
+      <h3 className="text-sm font-bold text-[#1C1A17] mb-2">Gastos por Categoria</h3>
       <ResponsiveContainer width="100%" height={200}>
         <PieChart>
           <Pie data={data} cx="50%" cy="45%" innerRadius={50} outerRadius={75} paddingAngle={3} dataKey="value">
