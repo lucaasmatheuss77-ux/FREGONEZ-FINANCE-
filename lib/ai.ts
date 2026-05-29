@@ -7,15 +7,23 @@ export interface AIProcessResult {
 // ─── Parser inteligente por regras (sem API key) ────────────────────────────
 
 function extractAmount(text: string): number {
-  const match = text.match(/r\$\s*(\d+(?:[.,]\d+)?)|(\d+(?:[.,]\d+)?)\s*(?:reais?|conto|pila)/i)
-    ?? text.match(/(\d+(?:[.,]\d+)?)/);
+  const match = text.match(/r\$\s*([\d.,]+)|([\d.,]+)\s*(?:reais?|conto|pila)/i)
+    ?? text.match(/([\d.,]+)/);
   if (!match) return 0;
-  const raw = (match[1] || match[2] || match[0]).replace(",", ".");
+  const raw = (match[1] || match[2] || match[0]).trim();
+  // Brazilian format: 1.234,56 → dot=thousands, comma=decimal
+  if (raw.includes(",") && raw.includes(".")) {
+    return parseFloat(raw.replace(/\./g, "").replace(",", ".")) || 0;
+  }
+  // Only comma: 1234,56 → decimal comma
+  if (raw.includes(",")) {
+    return parseFloat(raw.replace(",", ".")) || 0;
+  }
   return parseFloat(raw) || 0;
 }
 
 function ruleBasedParse(text: string): AIProcessResult {
-  const t = text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const t = text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   // ── Financeiro ─────────────────────────────────────────────────────────────
   const expenseWords = ["gastei","paguei","comprei","custou","custa","cobrou","descontou","sai","saiu","perdi","debitou"];
@@ -102,12 +110,22 @@ function ruleBasedParse(text: string): AIProcessResult {
 
 // ─── Processamento principal ────────────────────────────────────────────────
 
+// Module-level singleton so TCP connections are reused across requests
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _groq: any = null;
+async function getGroq() {
+  if (!_groq) {
+    const { default: Groq } = await import("groq-sdk");
+    _groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  }
+  return _groq;
+}
+
 export async function processTranscription(text: string): Promise<AIProcessResult> {
   // Se tiver GROQ_API_KEY: usa IA para melhor interpretação
   if (process.env.GROQ_API_KEY) {
     try {
-      const { default: Groq } = await import("groq-sdk");
-      const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+      const groq = await getGroq();
 
       const prompt = `Você é o assistente pessoal do Lucas Fregonez. Analise este texto em português e determine a ação correta.
 

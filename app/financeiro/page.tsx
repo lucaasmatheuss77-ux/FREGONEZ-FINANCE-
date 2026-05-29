@@ -16,16 +16,25 @@ export default function FinanceiroPage() {
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState<"all"|"income"|"expense">("all");
 
-  useEffect(() => { fetch("/api/transactions").then(r => r.json()).then(setTransactions).finally(() => setLoading(false)); }, []);
+  useEffect(() => {
+    fetch("/api/transactions")
+      .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(data => setTransactions(Array.isArray(data) ? data : []))
+      .catch(() => toast.error("Erro ao carregar transações"))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleAdd = async (t: { type: string; amount: number; description: string; category: string; date: string }) => {
-    const newTx = await fetch("/api/transactions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(t) }).then(r => r.json());
+    const r = await fetch("/api/transactions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(t) });
+    if (!r.ok) { toast.error("Erro ao registrar transação"); return; }
+    const newTx = await r.json();
     setTransactions(prev => [newTx, ...prev]);
     toast.success(t.type === "income" ? "Receita adicionada! 📈" : "Despesa registrada! 📝");
   };
 
   const handleDelete = async (id: string) => {
-    await fetch("/api/transactions", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    const r = await fetch("/api/transactions", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    if (!r.ok) { toast.error("Erro ao remover transação"); return; }
     setTransactions(prev => prev.filter(t => t.id !== id));
     toast.success("Transação removida");
   };

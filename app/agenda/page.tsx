@@ -23,16 +23,25 @@ export default function AgendaPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { fetch("/api/events").then(r => r.json()).then(setEvents).finally(() => setLoading(false)); }, []);
+  useEffect(() => {
+    fetch("/api/events")
+      .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(data => setEvents(Array.isArray(data) ? data : []))
+      .catch(() => toast.error("Erro ao carregar eventos"))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleAdd = async (e: { title: string; description?: string; startDate: string; endDate?: string; category: string; color: string }) => {
-    const newEv = await fetch("/api/events", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(e) }).then(r => r.json());
+    const r = await fetch("/api/events", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(e) });
+    if (!r.ok) { toast.error("Erro ao criar evento"); return; }
+    const newEv = await r.json();
     setEvents(prev => [...prev, newEv]);
     toast.success("Evento criado!");
   };
 
   const handleDelete = async (id: string) => {
-    await fetch("/api/events", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    const r = await fetch("/api/events", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    if (!r.ok) { toast.error("Erro ao remover evento"); return; }
     setEvents(prev => prev.filter(e => e.id !== id));
     toast.success("Evento removido");
   };

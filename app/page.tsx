@@ -6,6 +6,7 @@ import { FinancialBarChart, ExpensePieChart } from "@/components/Dashboard/Chart
 import { Card } from "@/components/ui/Card";
 import { formatCurrency, formatDate, formatDateTime } from "@/lib/utils";
 import { TrendingUp, TrendingDown, CheckSquare, Calendar, ArrowRight, Clock, Wallet } from "lucide-react";
+import toast from "react-hot-toast";
 import Link from "next/link";
 
 interface DashboardData {
@@ -27,7 +28,11 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/dashboard").then(r => r.json()).then(setData).finally(() => setLoading(false));
+    fetch("/api/dashboard")
+      .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(setData)
+      .catch(() => toast.error("Erro ao carregar painel"))
+      .finally(() => setLoading(false));
   }, []);
 
   const greeting = () => {

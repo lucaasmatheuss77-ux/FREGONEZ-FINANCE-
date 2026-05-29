@@ -30,25 +30,36 @@ export default function TarefasPage() {
 
   const loadTasks = async () => {
     setLoading(true);
-    const data = await fetch("/api/tasks").then(r => r.json());
-    setTasks(data);
-    setLoading(false);
+    try {
+      const r = await fetch("/api/tasks");
+      if (!r.ok) throw new Error(String(r.status));
+      const data = await r.json();
+      setTasks(Array.isArray(data) ? data : []);
+    } catch {
+      toast.error("Erro ao carregar tarefas");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleAdd = async (task: { title: string; description?: string; priority: string; category?: string; dueDate?: string }) => {
-    const newTask = await fetch("/api/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(task) }).then(r => r.json());
+    const r = await fetch("/api/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(task) });
+    if (!r.ok) { toast.error("Erro ao criar tarefa"); return; }
+    const newTask = await r.json();
     setTasks(prev => [newTask, ...prev]);
     toast.success("Tarefa criada!");
   };
 
   const handleStatusChange = async (id: string, status: string) => {
-    await fetch(`/api/tasks/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) });
+    const r = await fetch(`/api/tasks/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) });
+    if (!r.ok) { toast.error("Erro ao atualizar tarefa"); return; }
     setTasks(prev => prev.map(t => t.id === id ? { ...t, status } : t));
     toast.success(status === "done" ? "Tarefa concluída! 🎉" : "Status atualizado");
   };
 
   const handleDelete = async (id: string) => {
-    await fetch(`/api/tasks/${id}`, { method: "DELETE" });
+    const r = await fetch(`/api/tasks/${id}`, { method: "DELETE" });
+    if (!r.ok) { toast.error("Erro ao remover tarefa"); return; }
     setTasks(prev => prev.filter(t => t.id !== id));
     toast.success("Tarefa removida");
   };

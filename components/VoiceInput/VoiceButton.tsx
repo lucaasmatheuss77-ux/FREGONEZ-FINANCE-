@@ -15,6 +15,7 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
   const [interimText, setInterimText] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
+  const stoppedByUserRef = useRef(false);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,6 +37,8 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
     recognition.maxAlternatives = 1;
 
     let finalText = "";
+    let hadError = false;
+    stoppedByUserRef.current = false;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onresult = (event: any) => {
@@ -49,9 +52,18 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
       setInterimText(interim);
     };
 
-    recognition.onerror = () => { setState("error"); };
+    recognition.onerror = (e: { error: string }) => {
+      // "no-speech" is a benign timeout; restart unless the user stopped
+      if (e.error === "no-speech" && !stoppedByUserRef.current) { recognition.start(); return; }
+      hadError = true;
+      setState("error");
+    };
 
     recognition.onend = async () => {
+      // onerror always fires before onend; don't overwrite the error state
+      if (hadError) return;
+      // Browser auto-stopped without user intent: restart to keep listening
+      if (!stoppedByUserRef.current) { try { recognition.start(); } catch { /* already stopped */ } return; }
       const fullText = finalText.trim();
       if (!fullText) { setState("idle"); return; }
       setState("processing");
@@ -61,6 +73,7 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ transcription: fullText }),
         });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setResult({ transcription: fullText, action: data.action, summary: data.summary });
         setState("done");
@@ -79,6 +92,7 @@ export function VoiceButton({ onClose }: VoiceButtonProps) {
   }, []);
 
   const stopRecording = useCallback(() => {
+    stoppedByUserRef.current = true;
     recognitionRef.current?.stop();
   }, []);
 

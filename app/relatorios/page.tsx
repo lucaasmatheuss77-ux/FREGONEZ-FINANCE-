@@ -14,15 +14,25 @@ interface DashboardData {
   categoryData: { name: string; value: number }[];
 }
 interface Transaction { id: string; type: string; amount: number; description: string; category: string; date: string; }
+interface AudioStats { total: number; task: number; event: number; financial: number; note: number; }
 
 export default function RelatoriosPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [audioStats, setAudioStats] = useState<AudioStats>({ total: 0, task: 0, event: 0, financial: 0, note: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([fetch("/api/dashboard").then(r => r.json()), fetch("/api/transactions").then(r => r.json())])
-      .then(([dash, txs]) => { setData(dash); setTransactions(txs); })
+    Promise.all([
+      fetch("/api/dashboard").then(r => r.ok ? r.json() : null),
+      fetch("/api/transactions").then(r => r.ok ? r.json() : []),
+      fetch("/api/audio-logs").then(r => r.ok ? r.json() : { total: 0, task: 0, event: 0, financial: 0, note: 0 }),
+    ])
+      .then(([dash, txs, audio]) => {
+        if (dash) setData(dash);
+        setTransactions(Array.isArray(txs) ? txs : []);
+        setAudioStats(audio ?? { total: 0, task: 0, event: 0, financial: 0, note: 0 });
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -155,10 +165,10 @@ export default function RelatoriosPage() {
             <h3 className="text-sm font-bold text-gray-800">Uso do Assistente de Voz</h3>
           </div>
           <div className="grid grid-cols-4 gap-2 text-center">
-            {[{ label:"Total", value:0, color:"text-gray-700", bg:"bg-gray-50" },
-              { label:"Tarefas", value:0, color:"text-violet-600", bg:"bg-violet-50" },
-              { label:"Eventos", value:0, color:"text-blue-600", bg:"bg-blue-50" },
-              { label:"Finanças", value:0, color:"text-emerald-600", bg:"bg-emerald-50" }].map(s => (
+            {[{ label:"Total",    value: audioStats.total,     color:"text-gray-700",    bg:"bg-gray-50"    },
+              { label:"Tarefas",  value: audioStats.task,      color:"text-violet-600",  bg:"bg-violet-50"  },
+              { label:"Eventos",  value: audioStats.event,     color:"text-blue-600",    bg:"bg-blue-50"    },
+              { label:"Finanças", value: audioStats.financial, color:"text-emerald-600", bg:"bg-emerald-50" }].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-2.5 border border-gray-100`}>
                 <p className={`text-xl font-black ${s.color}`}>{s.value}</p>
                 <p className="text-[10px] text-gray-400 font-medium mt-0.5">{s.label}</p>
