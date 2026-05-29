@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         startDate: new Date(body.startDate),
         endDate: body.endDate ? new Date(body.endDate) : undefined,
         category: body.category || "personal",
-        color: body.color || "#7C3AED",
+        color: body.color || "#D97706",
         allDay: body.allDay || false,
       },
     });

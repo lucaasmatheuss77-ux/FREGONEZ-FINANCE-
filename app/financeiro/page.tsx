@@ -105,7 +105,7 @@ export default function FinanceiroPage() {
 
         {/* Transactions */}
         {loading ? (
-          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
+          <div className="py-8 text-center"><div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
         ) : Object.keys(grouped).length > 0 ? (
           Object.entries(grouped).map(([date, txs]) => (
             <div key={date}>

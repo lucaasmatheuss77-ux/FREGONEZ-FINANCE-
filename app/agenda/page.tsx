@@ -89,7 +89,7 @@ export default function AgendaPage() {
               return (
                 <button key={i} onClick={() => { setSelectedDate(dateStr); if (!dayEvs.length) setShowModal(true); }}
                   className={cn("flex flex-col items-center py-1.5 rounded-xl transition-all",
-                    isToday ? "bg-gradient-to-br from-violet-600 to-blue-600 shadow-neon-sm" : isSel ? "bg-violet-50 border border-violet-200" : "hover:bg-gray-50"
+                    isToday ? "bg-gradient-to-br from-amber-600 to-yellow-500 shadow-neon-sm" : isSel ? "bg-amber-50 border border-amber-200" : "hover:bg-gray-50"
                   )}>
                   <span className={cn("text-xs font-bold", isToday ? "text-white" : "text-gray-700")}>{day}</span>
                   {dayEvs.length > 0 && (
@@ -134,11 +134,11 @@ export default function AgendaPage() {
         {/* Upcoming events */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Calendar size={16} className="text-violet-500" />
+            <Calendar size={16} className="text-amber-500" />
             <h3 className="text-sm font-bold text-gray-800">Próximos Eventos</h3>
           </div>
           {loading ? (
-            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
+            <div className="py-4 text-center"><div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto" /></div>
           ) : upcoming.length > 0 ? (
             <div className="space-y-2">
               {upcoming.map(ev => (

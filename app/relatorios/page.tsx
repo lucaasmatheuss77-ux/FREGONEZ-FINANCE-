@@ -52,7 +52,7 @@ export default function RelatoriosPage() {
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
@@ -79,7 +79,7 @@ export default function RelatoriosPage() {
         {/* Task completion */}
         <Card className="p-4">
           <div className="flex items-center gap-2 mb-4">
-            <CheckSquare size={16} className="text-violet-500" />
+            <CheckSquare size={16} className="text-amber-500" />
             <h3 className="text-sm font-bold text-gray-800">Produtividade</h3>
           </div>
           <div className="flex items-center gap-5">
@@ -87,7 +87,7 @@ export default function RelatoriosPage() {
               <svg viewBox="0 0 36 36" className="w-20 h-20 -rotate-90">
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#F0F2FF" strokeWidth="3" />
                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#progGrad)" strokeWidth="3" strokeDasharray={`${completionRate}, 100`} strokeLinecap="round" />
-                <defs><linearGradient id="progGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#7C3AED" /><stop offset="100%" stopColor="#06B6D4" /></linearGradient></defs>
+                <defs><linearGradient id="progGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#D97706" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient></defs>
               </svg>
               <div className="absolute inset-0 flex items-center justify-center"><span className="text-lg font-black text-gradient">{completionRate}%</span></div>
             </div>
@@ -113,15 +113,15 @@ export default function RelatoriosPage() {
               <AreaChart data={balanceData}>
                 <defs>
                   <linearGradient id="balGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#7C3AED" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="#7C3AED" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#D97706" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="#D97706" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="month" tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis hide />
                 <Tooltip formatter={(v: number) => [formatCurrency(v), "Saldo"]}
                   contentStyle={{ background: "#fff", border: "1px solid #E5E7EB", borderRadius: "10px", fontSize: 12, boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }} />
-                <Area type="monotone" dataKey="saldo" stroke="#7C3AED" strokeWidth={2.5} fill="url(#balGrad)" dot={{ fill: "#7C3AED", strokeWidth: 0, r: 4 }} activeDot={{ r: 5, fill: "#7C3AED" }} />
+                <Area type="monotone" dataKey="saldo" stroke="#D97706" strokeWidth={2.5} fill="url(#balGrad)" dot={{ fill: "#D97706", strokeWidth: 0, r: 4 }} activeDot={{ r: 5, fill: "#D97706" }} />
               </AreaChart>
             </ResponsiveContainer>
           </Card>
@@ -141,7 +141,7 @@ export default function RelatoriosPage() {
               {data.categoryData.slice(0, 5).map((cat, i) => {
                 const total = data.categoryData.reduce((s,c) => s + c.value, 0);
                 const pct = total > 0 ? (cat.value / total) * 100 : 0;
-                const gradients = ["from-violet-500 to-blue-500","from-blue-500 to-cyan-500","from-cyan-500 to-emerald-500","from-emerald-500 to-amber-500","from-amber-500 to-red-500"];
+                const gradients = ["from-amber-500 to-yellow-400","from-blue-500 to-cyan-500","from-cyan-500 to-emerald-500","from-emerald-500 to-amber-500","from-amber-500 to-red-500"];
                 return (
                   <div key={cat.name}>
                     <div className="flex justify-between text-xs mb-1.5">
@@ -166,7 +166,7 @@ export default function RelatoriosPage() {
           </div>
           <div className="grid grid-cols-4 gap-2 text-center">
             {[{ label:"Total",    value: audioStats.total,     color:"text-gray-700",    bg:"bg-gray-50"    },
-              { label:"Tarefas",  value: audioStats.task,      color:"text-violet-600",  bg:"bg-violet-50"  },
+              { label:"Tarefas",  value: audioStats.task,      color:"text-amber-600",  bg:"bg-amber-50"  },
               { label:"Eventos",  value: audioStats.event,     color:"text-blue-600",    bg:"bg-blue-50"    },
               { label:"Finanças", value: audioStats.financial, color:"text-emerald-600", bg:"bg-emerald-50" }].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-2.5 border border-gray-100`}>

@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/Card";
 interface MonthlyData { month: string; receitas: number; despesas: number; }
 interface CategoryData { name: string; value: number; }
 
-const COLORS = ["#7C3AED","#2563EB","#06B6D4","#10B981","#F59E0B","#EC4899","#EF4444","#94A3B8"];
+const COLORS = ["#D97706","#2563EB","#06B6D4","#10B981","#F59E0B","#EC4899","#EF4444","#94A3B8"];
 
 const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color: string }[]; label?: string }) => {
   if (!active || !payload?.length) return null;
@@ -29,7 +29,7 @@ export function FinancialBarChart({ data }: { data: MonthlyData[] }) {
         <BarChart data={data} barCategoryGap="30%">
           <XAxis dataKey="month" tick={{ fill: "#9CA3AF", fontSize: 11 }} axisLine={false} tickLine={false} />
           <YAxis hide />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(124,58,237,0.04)" }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(217,119,6,0.04)" }} />
           <Bar dataKey="receitas" name="Receitas" fill="url(#greenGrad)" radius={[6,6,0,0]} />
           <Bar dataKey="despesas" name="Despesas" fill="url(#redGrad)" radius={[6,6,0,0]} />
           <defs>

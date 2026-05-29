@@ -4,11 +4,11 @@
 @tailwind utilities;
 
 :root {
-  --bg: #F0F2FF;
+  --bg: #FFFBF0;
   --surface: #FFFFFF;
-  --border: rgba(124, 58, 237, 0.1);
-  --text-primary: #0F0F1A;
-  --text-secondary: #5B6080;
+  --border: rgba(217, 119, 6, 0.12);
+  --text-primary: #1A1400;
+  --text-secondary: #6B5B1E;
   --text-muted: #9CA3AF;
 }
 
@@ -16,8 +16,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: #EEF0FF;
-  color: #0F0F1A;
+  background: #FFFBF0;
+  color: #1A1400;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -25,7 +25,7 @@ body {
 
 /* Metallic gold text */
 .text-metallic {
-  background: linear-gradient(135deg, #D97706, #F59E0B, #FDE68A, #F59E0B, #D97706);
+  background: linear-gradient(135deg, #92400E, #D97706, #FCD34D, #F59E0B, #92400E);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -34,7 +34,7 @@ body {
 
 /* Vibrant gradient text */
 .text-gradient {
-  background: linear-gradient(135deg, #7C3AED, #2563EB, #06B6D4);
+  background: linear-gradient(135deg, #92400E, #D97706, #F59E0B);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -43,28 +43,28 @@ body {
 /* Light glass card */
 .glass-card {
   background: #FFFFFF;
-  border: 1px solid rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(217, 119, 6, 0.12);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.07);
+  box-shadow: 0 4px 24px rgba(217, 119, 6, 0.08);
 }
 
 /* Animated light background */
 .animated-bg {
   background:
-    radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(37, 99, 235, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at center, rgba(6, 182, 212, 0.04) 0%, transparent 60%),
-    #EEF0FF;
+    radial-gradient(ellipse at top left, rgba(217, 119, 6, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(245, 158, 11, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at center, rgba(252, 211, 77, 0.04) 0%, transparent 60%),
+    #FFFBF0;
   min-height: 100vh;
 }
 
-/* Neon border on white */
+/* Gold neon border */
 .border-neon {
   border: 1.5px solid transparent;
   background:
     linear-gradient(white, white) padding-box,
-    linear-gradient(135deg, #7C3AED, #2563EB, #06B6D4) border-box;
-  box-shadow: 0 4px 30px rgba(124, 58, 237, 0.12);
+    linear-gradient(135deg, #92400E, #D97706, #F59E0B, #FCD34D) border-box;
+  box-shadow: 0 4px 30px rgba(217, 119, 6, 0.15);
 }
 
 .border-gold {
@@ -72,14 +72,14 @@ body {
   background:
     linear-gradient(white, white) padding-box,
     linear-gradient(135deg, #F59E0B, #D97706, #FDE68A) border-box;
-  box-shadow: 0 4px 30px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 4px 30px rgba(245, 158, 11, 0.15);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: #F0F2FF; }
-::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.5); }
+::-webkit-scrollbar-track { background: #FFFBF0; }
+::-webkit-scrollbar-thumb { background: rgba(217, 119, 6, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(217, 119, 6, 0.5); }
 
 /* Recording pulse */
 @keyframes recording-pulse {
@@ -88,24 +88,24 @@ body {
 }
 .recording-pulse { animation: recording-pulse 1.5s ease-in-out infinite; }
 
-/* Glow on light */
+/* Glow dourado */
 @keyframes glow-pulse-light {
-  0%, 100% { box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35), 0 0 0 0 rgba(124, 58, 237, 0.2); }
-  50% { box-shadow: 0 8px 40px rgba(124, 58, 237, 0.55), 0 0 0 8px rgba(124, 58, 237, 0); }
+  0%, 100% { box-shadow: 0 4px 20px rgba(217, 119, 6, 0.45), 0 0 0 0 rgba(217, 119, 6, 0.25); }
+  50% { box-shadow: 0 8px 40px rgba(217, 119, 6, 0.65), 0 0 0 8px rgba(217, 119, 6, 0); }
 }
 .glow-animate { animation: glow-pulse-light 2s ease-in-out infinite; }
 
 /* Input style */
 .input-light {
   width: 100%;
-  background: #F8F9FF;
+  background: #FFFDF5;
   border: 1.5px solid #E5E7EB;
   border-radius: 12px;
   padding: 10px 14px;
   font-size: 14px;
-  color: #0F0F1A;
+  color: #1A1400;
   outline: none;
   transition: all 0.2s;
 }
 .input-light::placeholder { color: #9CA3AF; }
-.input-light:focus { border-color: rgba(124, 58, 237, 0.5); background: #FFFFFF; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08); }
+.input-light:focus { border-color: rgba(217, 119, 6, 0.5); background: #FFFFFF; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.08); }

@@ -13,7 +13,7 @@ export function Button({ children, variant = "primary", size = "md", loading, cl
       disabled={disabled || loading}
       className={cn(
         "font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 justify-center",
-        variant === "primary" && "bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 text-white shadow-btn hover:shadow-btn-hover hover:scale-[1.02] active:scale-[0.98]",
+        variant === "primary" && "bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-400 text-white shadow-btn hover:shadow-btn-hover hover:scale-[1.02] active:scale-[0.98]",
         variant === "secondary" && "bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300",
         variant === "ghost" && "text-gray-500 hover:text-gray-800 hover:bg-gray-100",
         variant === "danger" && "bg-red-50 border border-red-200 text-red-600 hover:bg-red-100",

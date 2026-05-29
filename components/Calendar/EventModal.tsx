@@ -9,13 +9,13 @@ interface EventModalProps {
   onAdd: (e: { title: string; description?: string; startDate: string; endDate?: string; category: string; color: string }) => Promise<void>;
 }
 
-const EVENT_COLORS = ["#7C3AED","#2563EB","#06B6D4","#10B981","#F59E0B","#EC4899","#EF4444"];
+const EVENT_COLORS = ["#D97706","#2563EB","#06B6D4","#10B981","#F59E0B","#EC4899","#EF4444"];
 
 export function EventModal({ isOpen, onClose, selectedDate, onAdd }: EventModalProps) {
   const [title, setTitle] = useState(""); const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState(selectedDate || new Date().toISOString().slice(0,16));
   const [endDate, setEndDate] = useState(""); const [category, setCategory] = useState("personal");
-  const [color, setColor] = useState("#7C3AED"); const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("#D97706"); const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
