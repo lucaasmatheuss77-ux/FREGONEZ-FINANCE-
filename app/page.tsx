@@ -8,6 +8,7 @@ import { formatCurrency, formatDate, formatDateTime } from "@/lib/utils";
 import { TrendingUp, TrendingDown, CheckSquare, Calendar, ArrowRight, Clock, Wallet } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { Logo } from "@/components/ui/Logo";
 
 interface DashboardData {
   totalBalance: number; monthIncome: number; monthExpense: number;
@@ -44,12 +45,17 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-[#1A2E1A] flex items-center justify-center shadow-neon-sm animate-pulse">
-            <span className="text-xl font-black text-white">LF</span>
+      <div className="min-h-screen flex items-center justify-center bg-[#243D22]">
+        <div className="flex flex-col items-center gap-6">
+          <div className="animate-pulse">
+            <Logo size="xl" />
           </div>
-          <p className="text-gradient font-bold">Carregando...</p>
+          <div className="flex gap-1.5">
+            {[0,1,2].map(i => (
+              <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] animate-bounce"
+                style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </div>
         </div>
       </div>
     );

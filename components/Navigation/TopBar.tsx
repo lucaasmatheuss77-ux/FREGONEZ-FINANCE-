@@ -25,7 +25,8 @@ export function TopBar({ title, subtitle }: TopBarProps) {
           <Bell size={16} />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#B8882A] rounded-full" />
         </button>
-        <Logo size="xs" />
+        {/* Icon-only logo in top bar */}
+        <Logo size="xs" iconOnly />
       </div>
     </div>
   );

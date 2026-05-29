@@ -1,84 +1,125 @@
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "full";
   className?: string;
+  /** Show only the icon (no text below) */
+  iconOnly?: boolean;
 }
 
-const sizes = { xs: 28, sm: 36, md: 48, lg: 64, xl: 96 };
+const px: Record<string, number> = { xs: 36, sm: 48, md: 72, lg: 100, xl: 160, full: 240 };
 
-export function Logo({ size = "md", className }: LogoProps) {
-  const px = sizes[size];
+export function Logo({ size = "md", className, iconOnly = false }: LogoProps) {
+  const w = px[size];
+  // Aspect ratio of full logo is 520:440; icon-only (just the circle area) is square
+  const h = iconOnly ? w : Math.round(w * (440 / 520));
+
   return (
     <svg
-      width={px}
-      height={px}
-      viewBox="0 0 120 120"
+      width={w}
+      height={h}
+      viewBox={iconOnly ? "80 40 360 320" : "0 0 520 440"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn("flex-shrink-0", className)}
     >
       <defs>
-        <linearGradient id="lfa-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#0E1E0E" />
-          <stop offset="100%" stopColor="#1A2E1A" />
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap');`}</style>
+
+        {/* Gold gradient for LF letters */}
+        <linearGradient id="lf-gold-letters" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="#EDD880" />
+          <stop offset="30%"  stopColor="#C9A84C" />
+          <stop offset="70%"  stopColor="#A87828" />
+          <stop offset="100%" stopColor="#C9A84C" />
         </linearGradient>
-        <linearGradient id="lfa-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#E8CC68" />
-          <stop offset="50%" stopColor="#B8882A" />
-          <stop offset="100%" stopColor="#D4A84B" />
+
+        {/* Gold for ornaments/text */}
+        <linearGradient id="lf-gold-thin" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stopColor="#A87828" />
+          <stop offset="50%"  stopColor="#D4B460" />
+          <stop offset="100%" stopColor="#A87828" />
         </linearGradient>
-        <linearGradient id="lfa-rule" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="rgba(176,125,16,0)" />
-          <stop offset="30%" stopColor="#B8882A" />
-          <stop offset="70%" stopColor="#E8C870" />
-          <stop offset="100%" stopColor="rgba(176,125,16,0)" />
-        </linearGradient>
-        <filter id="lfa-glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.2" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
 
-      {/* Background */}
-      <rect width="120" height="120" rx="26" fill="url(#lfa-bg)" />
+      {/* ── Background ─────────────────────────────────────────────── */}
+      {!iconOnly && (
+        <rect width="520" height="440" fill="#243D22" />
+      )}
+      {iconOnly && (
+        <rect x="80" y="40" width="360" height="320" rx="16" fill="#243D22" />
+      )}
 
-      {/* Inner border glow */}
-      <rect x="2" y="2" width="116" height="116" rx="24" fill="none"
-        stroke="rgba(176,125,16,0.25)" strokeWidth="1" />
+      {/* ── Dashed circle ──────────────────────────────────────────── */}
+      <circle
+        cx="260" cy="200" r="128"
+        fill="none"
+        stroke="#C9A84C"
+        strokeWidth="1.4"
+        strokeDasharray="5 4"
+        opacity="0.75"
+      />
 
-      {/* Top rule */}
-      <rect x="18" y="21" width="84" height="1.5" rx="0.75" fill="url(#lfa-rule)" />
+      {/* ── Diamond ornaments at compass points ────────────────────── */}
+      {/* Top */}
+      <polygon points="260,60  265.5,70  260,80  254.5,70" fill="#C9A84C" />
+      {/* Bottom */}
+      <polygon points="260,320 265.5,330 260,340 254.5,330" fill="#C9A84C" />
+      {/* Left */}
+      <polygon points="120,196 130,201.5 120,207 110,201.5" fill="#C9A84C" />
+      {/* Right */}
+      <polygon points="400,196 410,201.5 400,207 390,201.5" fill="#C9A84C" />
 
-      {/* LFA lettering — serif, tight kerning */}
+      {/* Small star/diamond above top ornament */}
+      <polygon points="260,42 262.5,48 260,54 257.5,48" fill="#C9A84C" opacity="0.65" />
+
+      {/* ── "LF" letters ───────────────────────────────────────────── */}
       <text
-        x="60" y="80"
+        x="260"
+        y="238"
         textAnchor="middle"
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontSize="56"
+        fontFamily="'Cinzel Decorative', 'Trajan Pro', Georgia, serif"
+        fontSize="118"
         fontWeight="700"
-        fill="url(#lfa-gold)"
-        filter="url(#lfa-glow)"
-        letterSpacing="-1"
+        fill="url(#lf-gold-letters)"
+        letterSpacing="-6"
       >
-        LFA
+        LF
       </text>
 
-      {/* Bottom rule */}
-      <rect x="18" y="97" width="84" height="1.5" rx="0.75" fill="url(#lfa-rule)" />
+      {/* ── Bottom section ─────────────────────────────────────────── */}
+      {!iconOnly && (
+        <>
+          {/* Decorative rule: line — diamond — line */}
+          <line x1="100" y1="362" x2="244" y2="362" stroke="#C9A84C" strokeWidth="1" opacity="0.7" />
+          <polygon points="260,356 265,362 260,368 255,362" fill="#C9A84C" />
+          <line x1="276" y1="362" x2="420" y2="362" stroke="#C9A84C" strokeWidth="1" opacity="0.7" />
 
-      {/* Corner marks */}
-      <rect x="10" y="10" width="10" height="1.5" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="10" y="10" width="1.5" height="10" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="100" y="10" width="10" height="1.5" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="108.5" y="10" width="1.5" height="10" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="10" y="108.5" width="10" height="1.5" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="10" y="100" width="1.5" height="10" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="100" y="108.5" width="10" height="1.5" rx="0.75" fill="#B8882A" opacity="0.55" />
-      <rect x="108.5" y="100" width="1.5" height="10" rx="0.75" fill="#B8882A" opacity="0.55" />
+          {/* Subtitle text */}
+          <text
+            x="260"
+            y="394"
+            textAnchor="middle"
+            fontFamily="'Cinzel', 'Trajan Pro', Georgia, serif"
+            fontSize="13.5"
+            fontWeight="400"
+            fill="#C9A84C"
+            letterSpacing="5"
+            opacity="0.9"
+          >
+            AGENDA · SISTEMA DE GESTÃO
+          </text>
+
+          {/* Small diamond below text */}
+          <polygon points="260,406 263,412 260,418 257,412" fill="#C9A84C" opacity="0.6" />
+
+          {/* Corner ornaments */}
+          <polygon points="28,22  32,28  28,34  24,28" fill="#C9A84C" opacity="0.40" />
+          <polygon points="492,22 496,28 492,34 488,28" fill="#C9A84C" opacity="0.40" />
+          <polygon points="28,418 32,424 28,430 24,424" fill="#C9A84C" opacity="0.40" />
+          <polygon points="492,418 496,424 492,430 488,424" fill="#C9A84C" opacity="0.40" />
+        </>
+      )}
     </svg>
   );
 }

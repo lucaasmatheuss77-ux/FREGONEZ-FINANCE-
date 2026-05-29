@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,9 +44,9 @@ body {
   font-family: 'Playfair Display', Georgia, serif;
 }
 
-/* Gradient de texto: floresta → dourado */
+/* Gradient de texto: floresta → dourado (cores do logo) */
 .text-gradient {
-  background: linear-gradient(135deg, #1A2E1A 0%, #B8882A 60%, #D4A84B 100%);
+  background: linear-gradient(135deg, #243D22 0%, #B8882A 55%, #D4B460 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
