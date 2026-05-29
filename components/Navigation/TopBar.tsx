@@ -1,6 +1,7 @@
 "use client";
 import { Bell } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { Logo } from "@/components/ui/Logo";
 
 interface TopBarProps {
   title: string;
@@ -24,9 +25,7 @@ export function TopBar({ title, subtitle }: TopBarProps) {
           <Bell size={16} />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#B07D10] rounded-full" />
         </button>
-        <div className="w-9 h-9 rounded-xl bg-[#1B3A1B] flex items-center justify-center text-white font-black text-sm shadow-neon-sm">
-          LF
-        </div>
+        <Logo size="xs" />
       </div>
     </div>
   );

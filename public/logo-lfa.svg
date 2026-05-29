@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E2A0E"/>
+      <stop offset="100%" stop-color="#1B3A1B"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E0C05A"/>
+      <stop offset="50%" stop-color="#B07D10"/>
+      <stop offset="100%" stop-color="#C8992A"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B07D10"/>
+      <stop offset="100%" stop-color="#E0C05A"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background: rounded square -->
+  <rect width="120" height="120" rx="28" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid texture -->
+  <rect width="120" height="120" rx="28" fill="none" stroke="rgba(176,125,16,0.08)" stroke-width="1"/>
+  <line x1="0" y1="60" x2="120" y2="60" stroke="rgba(176,125,16,0.05)" stroke-width="1"/>
+  <line x1="60" y1="0" x2="60" y2="120" stroke="rgba(176,125,16,0.05)" stroke-width="1"/>
+
+  <!-- Top gold accent rule -->
+  <rect x="22" y="22" width="76" height="2" rx="1" fill="url(#accentGrad)" opacity="0.7"/>
+
+  <!-- L -->
+  <text x="14" y="82" font-family="Georgia, serif" font-size="52" font-weight="700" fill="url(#goldGrad)" filter="url(#glow)" letter-spacing="-2">L</text>
+
+  <!-- F -->
+  <text x="44" y="82" font-family="Georgia, serif" font-size="52" font-weight="700" fill="url(#goldGrad)" filter="url(#glow)" letter-spacing="-2">F</text>
+
+  <!-- A — slightly larger and shifted for hierarchy -->
+  <text x="73" y="82" font-family="Georgia, serif" font-size="52" font-weight="700" fill="url(#goldGrad)" filter="url(#glow)">A</text>
+
+  <!-- Bottom gold accent rule -->
+  <rect x="22" y="94" width="76" height="2" rx="1" fill="url(#accentGrad)" opacity="0.7"/>
+
+  <!-- Corner marks — disruptive detail -->
+  <rect x="10" y="10" width="8" height="2" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="10" y="10" width="2" height="8" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="102" y="10" width="8" height="2" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="108" y="10" width="2" height="8" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="10" y="108" width="8" height="2" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="10" y="102" width="2" height="8" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="102" y="108" width="8" height="2" rx="1" fill="#B07D10" opacity="0.6"/>
+  <rect x="108" y="102" width="2" height="8" rx="1" fill="#B07D10" opacity="0.6"/>
+</svg>
