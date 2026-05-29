@@ -5,40 +5,41 @@ export interface AIProcessResult {
 }
 
 export async function processTranscription(text: string): Promise<AIProcessResult> {
-  const { default: Anthropic } = await import("@anthropic-ai/sdk");
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const { default: Groq } = await import("groq-sdk");
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-  const prompt = `Você é um assistente pessoal do Lucas Fregonez. Analise o texto abaixo (transcrição de áudio) e determine:
-1. Se é uma TAREFA para fazer
-2. Se é um EVENTO na agenda
-3. Se é uma transação FINANCEIRA (receita ou despesa)
-4. Se é apenas uma NOTA/anotação
+  const prompt = `Você é um assistente pessoal do Lucas Fregonez. Analise o texto abaixo (transcrição de áudio) e determine qual ação criar.
 
-Texto transcrito: "${text}"
+Texto: "${text}"
 
-Responda APENAS com um JSON válido no seguinte formato:
+Regras:
+- Se menciona algo para FAZER, uma tarefa, lembrete → action: "task"
+- Se menciona hora, data, reunião, evento, compromisso → action: "event"
+- Se menciona dinheiro, gasto, paguei, recebi, salário, comprei → action: "financial"
+- Caso contrário → action: "note"
+
+Responda APENAS com JSON válido:
 {
   "action": "task" | "event" | "financial" | "note",
-  "summary": "resumo em português do que foi criado",
+  "summary": "frase curta descrevendo o que foi criado",
   "data": {
-    // Para task: { "title": string, "description": string, "priority": "low"|"medium"|"high", "category": string }
-    // Para event: { "title": string, "description": string, "startDate": "ISO string", "category": "work"|"personal"|"health"|"financial" }
-    // Para financial: { "type": "income"|"expense", "amount": number, "description": string, "category": string }
-    // Para note: { "content": string }
+    // task: { "title": string, "description": string, "priority": "low"|"medium"|"high", "category": string }
+    // event: { "title": string, "description": string, "startDate": "ISO 8601", "category": "work"|"personal"|"health"|"financial" }
+    // financial: { "type": "income"|"expense", "amount": number, "description": string, "category": string }
+    // note: { "content": string }
   }
 }`;
 
-  const message = await anthropic.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 1024,
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
     messages: [{ role: "user", content: prompt }],
+    max_tokens: 512,
+    temperature: 0.2,
+    response_format: { type: "json_object" },
   });
 
-  const content = message.content[0];
-  if (content.type !== "text") throw new Error("Unexpected response type");
+  const raw = completion.choices[0]?.message?.content;
+  if (!raw) throw new Error("Empty AI response");
 
-  const jsonMatch = content.text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error("No JSON found in response");
-
-  return JSON.parse(jsonMatch[0]) as AIProcessResult;
+  return JSON.parse(raw) as AIProcessResult;
 }

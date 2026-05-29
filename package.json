@@ -13,14 +13,13 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.100.0",
     "@prisma/client": "^5.22.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.3.0",
     "framer-motion": "^12.40.0",
+    "groq-sdk": "^1.2.1",
     "lucide-react": "^0.468.0",
     "next": "14.2.35",
-    "openai": "^4.67.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
