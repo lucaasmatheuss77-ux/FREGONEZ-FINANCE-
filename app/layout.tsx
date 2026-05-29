@@ -5,31 +5,32 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Lucas Fregonez Agenda",
-  description: "Sistema de gestão pessoal — agenda, tarefas e finanças",
-  manifest: "/manifest.json",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "LF Agenda" },
+  description: "Gestão pessoal — agenda, tarefas e finanças",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "LF Agenda" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#0A0A14",
+  themeColor: "#EEF0FF",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased animated-bg min-h-screen pb-20">
+      <body className="antialiased animated-bg min-h-screen pb-24">
         <Toaster
           position="top-center"
           toastOptions={{
             style: {
-              background: "rgba(15,15,30,0.95)",
-              color: "#E2E8F0",
-              border: "1px solid rgba(124,58,237,0.3)",
-              backdropFilter: "blur(20px)",
+              background: "#FFFFFF",
+              color: "#0F0F1A",
+              border: "1px solid rgba(124,58,237,0.2)",
               borderRadius: "12px",
+              boxShadow: "0 8px 32px rgba(124,58,237,0.12)",
+              fontSize: "14px",
+              fontWeight: "500",
             },
           }}
         />

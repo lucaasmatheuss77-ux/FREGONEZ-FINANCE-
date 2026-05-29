@@ -5,13 +5,11 @@ import { StatsCard } from "@/components/Dashboard/StatsCard";
 import { FinancialBarChart, ExpensePieChart } from "@/components/Dashboard/Charts";
 import { Card } from "@/components/ui/Card";
 import { formatCurrency, formatDate, formatDateTime } from "@/lib/utils";
-import { TrendingUp, TrendingDown, CheckSquare, Calendar, ArrowRight, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, CheckSquare, Calendar, ArrowRight, Clock, Wallet } from "lucide-react";
 import Link from "next/link";
 
 interface DashboardData {
-  totalBalance: number;
-  monthIncome: number;
-  monthExpense: number;
+  totalBalance: number; monthIncome: number; monthExpense: number;
   taskCounts: { todo: number; doing: number; done: number };
   recentTransactions: { id: string; type: string; amount: number; description: string; category: string; date: string }[];
   upcomingTasks: { id: string; title: string; priority: string; dueDate?: string | null }[];
@@ -20,18 +18,16 @@ interface DashboardData {
   categoryData: { name: string; value: number }[];
 }
 
-const priorityColors: Record<string, string> = {
-  high: "text-red-400",
-  medium: "text-yellow-400",
-  low: "text-emerald-400",
-};
+const priorityDot: Record<string, string> = { high: "bg-red-500", medium: "bg-amber-400", low: "bg-emerald-500" };
+const priorityLabel: Record<string, string> = { high: "Alta", medium: "Média", low: "Baixa" };
+const priorityText: Record<string, string> = { high: "text-red-500", medium: "text-amber-500", low: "text-emerald-600" };
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/dashboard").then((r) => r.json()).then(setData).finally(() => setLoading(false));
+    fetch("/api/dashboard").then(r => r.json()).then(setData).finally(() => setLoading(false));
   }, []);
 
   const greeting = () => {
@@ -45,10 +41,10 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-[0_0_40px_rgba(124,58,237,0.5)] animate-pulse">
-            <span className="text-2xl font-black text-white">LF</span>
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-violet-600 to-blue-600 flex items-center justify-center shadow-neon-sm animate-pulse">
+            <span className="text-xl font-black text-white">LF</span>
           </div>
-          <p className="text-gradient text-lg font-bold">Carregando...</p>
+          <p className="text-gradient font-bold">Carregando...</p>
         </div>
       </div>
     );
@@ -58,127 +54,109 @@ export default function DashboardPage() {
     <div className="max-w-md mx-auto min-h-screen">
       <TopBar title={`${greeting()}, Lucas 👋`} subtitle="Seu painel pessoal" />
 
-      <div className="px-4 pb-6 space-y-4 mt-4">
-        {/* Balance hero card */}
-        <div className="border-neon rounded-2xl p-5 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-cyan-900/10" />
-          <div className="relative">
-            <p className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-1">Saldo Total</p>
-            <p className={`text-4xl font-black mb-1 ${(data?.totalBalance || 0) >= 0 ? "text-emerald-400" : "text-red-400"}`}>
-              {formatCurrency(data?.totalBalance || 0)}
-            </p>
-            <p className="text-xs text-gray-500">Atualizado agora</p>
+      <div className="px-4 pb-6 space-y-4 mt-2">
+        {/* Balance hero */}
+        <div className="border-neon rounded-2xl p-5 text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Wallet size={16} className="text-amber-500" />
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Saldo Total</p>
           </div>
+          <p className={`text-4xl font-black mb-1 ${(data?.totalBalance ?? 0) >= 0 ? "text-emerald-600" : "text-red-500"}`}>
+            {formatCurrency(data?.totalBalance ?? 0)}
+          </p>
+          <p className="text-xs text-gray-400">Atualizado agora</p>
         </div>
 
-        {/* Stats grid */}
+        {/* Stats */}
         <div className="grid grid-cols-3 gap-3">
-          <StatsCard title="Receitas" value={data?.monthIncome || 0} icon={TrendingUp} isCurrency color="green" />
-          <StatsCard title="Despesas" value={data?.monthExpense || 0} icon={TrendingDown} isCurrency color="red" />
-          <StatsCard
-            title="Tarefas"
-            value={(data?.taskCounts.todo || 0) + (data?.taskCounts.doing || 0)}
-            icon={CheckSquare}
-            color="purple"
-            subtitle={`${data?.taskCounts.done || 0} feitas`}
-          />
+          <StatsCard title="Receitas" value={data?.monthIncome ?? 0} icon={TrendingUp} isCurrency color="green" />
+          <StatsCard title="Despesas" value={data?.monthExpense ?? 0} icon={TrendingDown} isCurrency color="red" />
+          <StatsCard title="Tarefas" value={(data?.taskCounts.todo ?? 0) + (data?.taskCounts.doing ?? 0)} icon={CheckSquare} color="purple" subtitle={`${data?.taskCounts.done ?? 0} feitas`} />
         </div>
 
         {/* Charts */}
-        {data?.monthlyData && data.monthlyData.some((d) => d.receitas > 0 || d.despesas > 0) && (
-          <FinancialBarChart data={data.monthlyData} />
-        )}
-        {data?.categoryData && data.categoryData.length > 0 && (
-          <ExpensePieChart data={data.categoryData} />
-        )}
+        {data?.monthlyData?.some(d => d.receitas > 0 || d.despesas > 0) && <FinancialBarChart data={data.monthlyData} />}
+        {data?.categoryData && data.categoryData.length > 0 && <ExpensePieChart data={data.categoryData} />}
 
         {/* Upcoming tasks */}
-        <Card>
+        <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-200">Próximas Tarefas</h3>
-            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300">
+            <h3 className="text-sm font-bold text-gray-800">Próximas Tarefas</h3>
+            <Link href="/tarefas" className="flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
-            {data?.upcomingTasks && data.upcomingTasks.length > 0 ? (
-              data.upcomingTasks.map((task) => (
-                <div key={task.id} className="flex items-center gap-3 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${task.priority === "high" ? "bg-red-400" : task.priority === "medium" ? "bg-yellow-400" : "bg-emerald-400"}`} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-white truncate">{task.title}</p>
-                    {task.dueDate && (
-                      <p className="text-xs text-gray-500 flex items-center gap-1">
-                        <Clock size={10} /> {formatDate(task.dueDate)}
-                      </p>
-                    )}
-                  </div>
-                  <span className={`text-xs font-medium flex-shrink-0 ${priorityColors[task.priority] || "text-gray-400"}`}>
-                    {task.priority === "high" ? "Alta" : task.priority === "medium" ? "Média" : "Baixa"}
-                  </span>
+            {data?.upcomingTasks?.length ? data.upcomingTasks.map(task => (
+              <div key={task.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                <div className={`w-2 h-2 rounded-full flex-shrink-0 ${priorityDot[task.priority] || "bg-gray-400"}`} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-gray-800 font-medium truncate">{task.title}</p>
+                  {task.dueDate && (
+                    <p className="text-xs text-gray-400 flex items-center gap-1">
+                      <Clock size={10} /> {formatDate(task.dueDate)}
+                    </p>
+                  )}
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500 text-sm py-3">Nenhuma tarefa pendente 🎉</p>
+                <span className={`text-xs font-bold ${priorityText[task.priority] || "text-gray-400"}`}>
+                  {priorityLabel[task.priority] || "—"}
+                </span>
+              </div>
+            )) : (
+              <p className="text-center text-gray-400 text-sm py-4">Nenhuma tarefa pendente 🎉</p>
             )}
           </div>
         </Card>
 
         {/* Upcoming events */}
-        <Card>
+        <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-200">Próximos Eventos</h3>
-            <Link href="/agenda" className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300">
+            <h3 className="text-sm font-bold text-gray-800">Próximos Eventos</h3>
+            <Link href="/agenda" className="flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium">
               Ver agenda <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
-            {data?.upcomingEvents && data.upcomingEvents.length > 0 ? (
-              data.upcomingEvents.map((event) => (
-                <div key={event.id} className="flex items-center gap-3 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <div className="w-1 h-10 rounded-full flex-shrink-0" style={{ background: event.color }} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-white truncate">{event.title}</p>
-                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                      <Calendar size={10} /> {formatDateTime(event.startDate)}
-                    </p>
-                  </div>
+            {data?.upcomingEvents?.length ? data.upcomingEvents.map(ev => (
+              <div key={ev.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-1 h-10 rounded-full flex-shrink-0" style={{ background: ev.color }} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-gray-800 font-medium truncate">{ev.title}</p>
+                  <p className="text-xs text-gray-400 flex items-center gap-1"><Calendar size={10} /> {formatDateTime(ev.startDate)}</p>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500 text-sm py-3">Nenhum evento próximo</p>
+              </div>
+            )) : (
+              <p className="text-center text-gray-400 text-sm py-4">Nenhum evento próximo</p>
             )}
           </div>
         </Card>
 
         {/* Recent transactions */}
-        <Card>
+        <Card className="p-4">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-gray-200">Últimas Transações</h3>
-            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300">
+            <h3 className="text-sm font-bold text-gray-800">Últimas Transações</h3>
+            <Link href="/financeiro" className="flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium">
               Ver todas <ArrowRight size={12} />
             </Link>
           </div>
           <div className="space-y-2">
-            {data?.recentTransactions && data.recentTransactions.length > 0 ? (
-              data.recentTransactions.map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <div className="flex items-center gap-2.5">
-                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${tx.type === "income" ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
-                      {tx.type === "income" ? <TrendingUp size={14} className="text-emerald-400" /> : <TrendingDown size={14} className="text-red-400" />}
-                    </div>
-                    <div>
-                      <p className="text-sm text-white">{tx.description}</p>
-                      <p className="text-xs text-gray-500">{tx.category}</p>
-                    </div>
+            {data?.recentTransactions?.length ? data.recentTransactions.map(tx => (
+              <div key={tx.id} className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="flex items-center gap-2.5">
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${tx.type === "income" ? "bg-emerald-50" : "bg-red-50"}`}>
+                    {tx.type === "income" ? <TrendingUp size={15} className="text-emerald-600" /> : <TrendingDown size={15} className="text-red-500" />}
                   </div>
-                  <span className={`text-sm font-bold ${tx.type === "income" ? "text-emerald-400" : "text-red-400"}`}>
-                    {tx.type === "income" ? "+" : "-"}{formatCurrency(tx.amount)}
-                  </span>
+                  <div>
+                    <p className="text-sm text-gray-800 font-medium">{tx.description}</p>
+                    <p className="text-xs text-gray-400">{tx.category}</p>
+                  </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500 text-sm py-3">Nenhuma transação ainda</p>
+                <span className={`text-sm font-black ${tx.type === "income" ? "text-emerald-600" : "text-red-500"}`}>
+                  {tx.type === "income" ? "+" : "-"}{formatCurrency(tx.amount)}
+                </span>
+              </div>
+            )) : (
+              <p className="text-center text-gray-400 text-sm py-4">Nenhuma transação ainda</p>
             )}
           </div>
         </Card>

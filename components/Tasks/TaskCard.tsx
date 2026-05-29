@@ -1,103 +1,68 @@
 "use client";
 import { Badge } from "@/components/ui/Badge";
-import { formatDate } from "@/lib/utils";
-import { Calendar, Trash2, GripVertical } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { Calendar, Trash2 } from "lucide-react";
 
 interface Task {
-  id: string;
-  title: string;
-  description?: string | null;
-  status: string;
-  priority: string;
-  dueDate?: string | null;
-  category?: string | null;
-  tags?: string[];
+  id: string; title: string; description?: string | null; status: string;
+  priority: string; dueDate?: string | null; category?: string | null; tags?: string[];
 }
+interface TaskCardProps { task: Task; onStatusChange: (id: string, status: string) => void; onDelete: (id: string) => void; }
 
-interface TaskCardProps {
-  task: Task;
-  onStatusChange: (id: string, status: string) => void;
-  onDelete: (id: string) => void;
-}
-
-const priorityConfig = {
-  high: { label: "Alta", variant: "red" as const, dot: "bg-red-400" },
-  medium: { label: "Média", variant: "yellow" as const, dot: "bg-yellow-400" },
-  low: { label: "Baixa", variant: "green" as const, dot: "bg-emerald-400" },
+const priorityConf = {
+  high:   { label: "Alta",  variant: "red" as const,    bar: "bg-red-400",    left: "bg-red-400"   },
+  medium: { label: "Média", variant: "yellow" as const, bar: "bg-amber-400",  left: "bg-amber-400" },
+  low:    { label: "Baixa", variant: "green" as const,  bar: "bg-emerald-400",left: "bg-emerald-400"},
 };
 
 export function TaskCard({ task, onStatusChange, onDelete }: TaskCardProps) {
-  const priority = priorityConfig[task.priority as keyof typeof priorityConfig] || priorityConfig.medium;
+  const p = priorityConf[task.priority as keyof typeof priorityConf] ?? priorityConf.medium;
   const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== "done";
 
   return (
     <div className={cn(
-      "glass-card border p-3 transition-all duration-200 hover:-translate-y-0.5 group",
-      task.status === "done"
-        ? "border-emerald-500/20 opacity-75"
-        : "border-purple-500/10 hover:border-purple-500/30"
+      "bg-white rounded-2xl border transition-all duration-200 group hover:shadow-card-hover hover:-translate-y-0.5 overflow-hidden",
+      task.status === "done" ? "border-gray-100 opacity-70" : "border-gray-100 hover:border-purple-200"
     )}>
-      <div className="flex items-start gap-2">
-        <GripVertical size={14} className="text-gray-600 mt-0.5 flex-shrink-0" />
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2 mb-1.5">
-            <h4 className={cn(
-              "text-sm font-semibold text-white leading-tight",
-              task.status === "done" && "line-through text-gray-400"
-            )}>
-              {task.title}
-            </h4>
-            <button
-              onClick={() => onDelete(task.id)}
-              className="opacity-0 group-hover:opacity-100 text-gray-600 hover:text-red-400 transition-all flex-shrink-0"
-            >
-              <Trash2 size={13} />
-            </button>
-          </div>
+      {/* Priority bar on top */}
+      <div className={cn("h-0.5 w-full", p.bar)} />
 
-          {task.description && (
-            <p className="text-xs text-gray-500 mb-2 line-clamp-2">{task.description}</p>
-          )}
+      <div className="p-3.5">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h4 className={cn("text-sm font-semibold text-gray-800 leading-snug", task.status === "done" && "line-through text-gray-400")}>
+            {task.title}
+          </h4>
+          <button onClick={() => onDelete(task.id)} className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all flex-shrink-0">
+            <Trash2 size={13} />
+          </button>
+        </div>
 
-          <div className="flex flex-wrap items-center gap-1.5">
-            <div className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", priority.dot)} />
-            <Badge variant={priority.variant}>{priority.label}</Badge>
+        {task.description && <p className="text-xs text-gray-400 mb-2.5 line-clamp-2">{task.description}</p>}
 
-            {task.category && (
-              <Badge variant="gray">{task.category}</Badge>
-            )}
-
-            {task.dueDate && (
-              <div className={cn(
-                "flex items-center gap-0.5 text-xs",
-                isOverdue ? "text-red-400" : "text-gray-500"
-              )}>
-                <Calendar size={10} />
-                <span>{formatDate(task.dueDate)}</span>
-              </div>
-            )}
-          </div>
-
-          {task.status !== "done" && (
-            <div className="flex gap-1.5 mt-2.5">
-              {task.status !== "doing" && (
-                <button
-                  onClick={() => onStatusChange(task.id, "doing")}
-                  className="text-xs px-2 py-0.5 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-500/20 hover:bg-blue-500/30 transition-colors"
-                >
-                  Iniciar
-                </button>
-              )}
-              <button
-                onClick={() => onStatusChange(task.id, "done")}
-                className="text-xs px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/30 transition-colors"
-              >
-                Concluir
-              </button>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <Badge variant={p.variant}>{p.label}</Badge>
+          {task.category && <Badge variant="gray">{task.category}</Badge>}
+          {task.dueDate && (
+            <div className={cn("flex items-center gap-1 text-xs", isOverdue ? "text-red-500" : "text-gray-400")}>
+              <Calendar size={10} />{formatDate(task.dueDate)}
             </div>
           )}
         </div>
+
+        {task.status !== "done" && (
+          <div className="flex gap-1.5 mt-3 pt-3 border-t border-gray-50">
+            {task.status !== "doing" && (
+              <button onClick={() => onStatusChange(task.id, "doing")}
+                className="text-xs px-3 py-1 rounded-lg bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 font-medium transition-colors">
+                Iniciar
+              </button>
+            )}
+            <button onClick={() => onStatusChange(task.id, "done")}
+              className="text-xs px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 font-medium transition-colors">
+              Concluir ✓
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
